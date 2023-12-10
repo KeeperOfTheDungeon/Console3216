@@ -61,9 +61,17 @@ class CurveFeverView:
         pass
 
     def clearScreen(self):
+        Display.clearDisplay()
+        Display.refresh()
+        Display.clearDisplay()
         pass
 
     def setBoost(self, player: int, boost: int):
+        display: int = DISPLAY_LEFT
+        if player == PLAYER_2:
+            display = DISPLAY_RIGHT
+        
+        NumericDisplay.displayValue(display, boost)
         pass
 
     def setTime(self, time: int):
