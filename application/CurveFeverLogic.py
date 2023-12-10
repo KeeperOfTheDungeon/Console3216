@@ -134,9 +134,36 @@ class Logic:
         pass
 
     def __updateOccursThisTick(self, speed: int) -> bool:
-        pass
+        # If speed is FAST, this will always be true.
+        # If speed is REGULAR, this will be true for every second tick.
+        # If speed is SLOW this will be true for every fourth tick.
+        return self.__gameTicks & (speed - 1) == 0
 
     def __updateCell(self, player: Player, head: bool):
+        state: int = STATE_EMPTY
+        name: int = player.getName()
+
+        if head:
+            item: Item = player.getItem()
+            if item != NO_ITEM and (not player.isItemActive() or (player.getItemDuration() & 1) != 0):
+                if item == ITEM_SLOW:
+                    state = STATE_ITEM_SLOW
+                elif item == ITEM_WALL:
+                    state = STATE_ITEM_WALL
+                else:
+                    state = STATE_ITEM_CLEAR
+            elif name == PLAYER_1:
+                state = STATE_PLAYER_1
+            else:
+                state = STATE_PLAYER_2
+        elif not player.isCreatingGap():
+            if name == PLAYER_1:
+                state = STATE_TAIL_1
+            else:
+                state = STATE_TAIL_2
+        
+        position: Position = player.getPosition()
+        self.__setCellState(position.x, position.y, state, True)
         pass
 
     def __setWinnerAfterValidMove(self, player1Updated: bool, player2Updated: bool):
