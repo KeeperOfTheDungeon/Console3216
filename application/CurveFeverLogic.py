@@ -94,6 +94,21 @@ class Logic:
         pass
     
     def __clearField(self):
+        self.__status.clearScreen = True
+        self.__status.updateCount = 0
+        itemState: int = self.__getCellState(self.__itemPosition.x, self.__itemPosition.y)
+
+        for i in range(FIELD_WIDTH):
+            for j in range(FIELD_HEIGHT):
+                self.__field[i][j] = STATE_EMPTY
+        
+        p: Position = self.__player1.getPosition()
+        self.__setCellState(p.x, p.y, STATE_PLAYER_1, True)
+        p = self.__player2.getPosition()
+        self.__setCellState(p.x, p.y, STATE_PLAYER_2, True)
+
+        if self.__currentItem != NO_ITEM:
+            self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, itemState, True)
         pass
 
     def __setDirectionForPlayer(self, player: Player):
