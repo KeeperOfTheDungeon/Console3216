@@ -52,6 +52,12 @@ class CurveFeverView:
 
     # TODO C++: void updatePixels(CellUpdate* cells, uint8_t cellCount);
     def updatePixels(self, cells: CellUpdate, cellCount: int):
+        for j in range(2):
+            for i in range(cellCount):
+                Display.drawPixel(cells[i].x, cells[i].y, self.__getColorOfState(cells[i].state))
+
+            if j == 0:
+                Display.refresh()
         pass
 
     def clearScreen(self):
