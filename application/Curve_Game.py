@@ -218,13 +218,57 @@ class Curve(Game):
         pass
 
     def prepareGame(self):
+        self.__view.clearScreen()
+        # TODO C++ Source:
+        # this->timeStart();
+        self.timeStart()
+        ticks = 0
+
+        # TODO C++ Source:
+        # MIDI_Control_Commands::setupMidi();
+        # MIDI_Control_Commands::playTrack(TRACK_ID,100);
+        MIDI_Control_Commands.setupMidi()
+        MIDI_Control_Commands.playTrack(TRACK_ID, 100)
+
+        # TODO C++ Source:
+        # gameStatus = logic.initGame(joystickLeft, joystickRight);
+        self.__gameStatus = self.__logic.initGame(leftJoystick, rightJoystick)
+
         pass
 
     def playGame(self):
+        ticks += 1
+        gameStatus = self.__logic.move()
+
+        self.__view.setBoost(PLAYER_1, self.__gameStatus.player1Boost)
+        self.__view.setBoost(PLAYER_2, self.__gameStatus.player2Boost)
+        self.__view.setTime(int(time / 1000))
+
+        if self.__gameStatus.clearScreen:
+            self.__view.clearScreen()
+        
+        self.__view.updatePixels(self.__gameStatus.cellUpdates, self.__gameStatus.updateCount)
+
+        if self.__gameStatus.gameOver:
+            self.state = GAME_STATE_END
+        
+        self.__view.playSound(self.__gameStatus.soundStatus)
         pass
 
     def gameOver(self):
+        Game.gameOver()
+        MIDI_Control_Commands.stopTrack(TRACK_ID)
+        self.__view.printWinner(self.__logic.getWinner())
         pass
 
     def process(self):
+        Game.process()
+
+        # TODO C++ Source:
+        # if (this->state == GAME_STATE_PLAY) {
+            # playGame();
+        # }
+
+        if self.state == GAME_STATE_PLAY:
+            self.playGame()
         pass
