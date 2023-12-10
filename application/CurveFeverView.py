@@ -44,6 +44,10 @@ class CurveFeverView:
 
     # TODO C++: void printGameName(char *name);
     def printGameName(self, name: int):
+        nameColor: int = Display.getColor(2, 0, 2)
+        Display.drawTest(name, 4, 4, nameColor, 1)
+        Display.refresh()
+        Display.drawText(name, 4, 4, nameColor, 1)
         pass
 
     # TODO C++: void updatePixels(CellUpdate* cells, uint8_t cellCount);
