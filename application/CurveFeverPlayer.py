@@ -57,7 +57,30 @@ class Player:
         self.__gapDuration: int = 0
 
     def __movePlayer(self) -> bool:
-        pass
+        validMove = True
+        # TODO C++ Source was switch/case
+        if self.__direction == RIGHT:
+            self.__position.x += 1
+            if self.__position.x >= type(self).width:
+                self.__position.x = 0
+                validMove = False
+        elif self.__direction == UP:
+            self.__position.y -= 1
+            if self.__position.y >= type(self).height:
+                self.__position.y = type(self).height - 1
+                validMove = False
+        elif self.__direction == LEFT:
+            self.__position.x -= 1
+            if self.__position.x >= type(self).width:
+                self.__position.x = type(self).width - 1
+                validMove = False
+        else:
+            self.__position.y += 1
+            if self.__position.y >= type(self).height:
+                self.__position.y = 0
+                validMove = False
+        
+        return validMove or (self.isItemActive() and self.getItem() == ITEM_WALL)
 
     @classmethod
     def setBounds(cls, width: int, height: int):
