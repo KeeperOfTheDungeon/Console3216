@@ -167,6 +167,28 @@ class Logic:
         pass
 
     def __setWinnerAfterValidMove(self, player1Updated: bool, player2Updated: bool):
+        pos1: Position = self.__player1.getPosition()
+        pos2: Position = self.__player2.getPosition()
+        if self.__havePlayersCollided(pos1, pos2, self.__player1.getDirection(), self.__player2.getDirection()):
+            self.__status.gameOver = True
+            self.__status.soundStatus = SOUND_GAMEOVER
+            if (player1Updated and not player2Updated) or self.__player1.isFasterThan(self.__player2):
+                self.__winner = PLAYER_2
+            elif (player2Updated and not player1Updated) or self.__player2.isFasterThan(self.__player1):
+                self.__winner = PLAYER_1
+            else:
+                self.__winner = DRAW
+        else:
+            if self.__getCellState(pos1.x, pos1.y) != STATE_EMPTY and player1Updated:
+                self.__status.gameOver = True
+                self.__winner = PLAYER_2
+            
+            if self.__getCellState(pos2.x, pos2.y) != STATE_EMPTY and player2Updated:
+                self.__status.gameOver = True
+                if self.__winner == PLAYER_2:
+                    self.__winner = DRAW
+                else:
+                    self.__winner = PLAYER_1
         pass
 
     def __maybeGenerateItem(self):
