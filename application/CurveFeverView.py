@@ -75,9 +75,25 @@ class CurveFeverView:
         pass
 
     def setTime(self, time: int):
+        NumericDisplay.displayTime(DISPLAY_MIDDLE, time)
         pass
 
     def printWinner(self, winner: int):
+        value: int = 0
+        # TODO C++ source: char* output = "Draw!";
+        output: str = "Draw!"
+
+        if winner == PLAYER_1:
+            value = 60 * 11 + 11
+            output = "P1 Wins!"
+        elif winner == PLAYER_2:
+            value = 60 * 22 + 22
+            output = "P2 Wins!" # C++ Source: output = "P1 Wins!";
+        
+        NumericDisplay.displayTime(DISPLAY_LEFT, value)
+        NumericDisplay.displayTime(DISPLAY_MIDDLE, value)
+        NumericDisplay.displayTime(DISPLAY_RIGHT, value)
+        Display.drawText(output, 1, 1, PLAYER_1, 1)
         pass
 
     def playSound(self, soundId: int):
