@@ -1,3 +1,5 @@
+import random
+
 RIGHT = 0
 UP = 1
 LEFT = 2
@@ -148,4 +150,25 @@ class Player:
         pass
 
     def update(self) -> bool:
-        pass
+        if self.getSpeed() == FAST:
+            self.__boost -= 1
+            if self.getBoost() == 0:
+                self.deactivateBoost()
+        
+        if self.isItemActive():
+            self.__itemDuration -= 1
+            if self.getItemDuration() == 0:
+                self.__itemActive = False
+                self.__item = NO_ITEM
+                self.__speed = REGULAR
+        
+        if self.__gapDuration == 0:
+            if self.__creatingGap:
+                self.__gapDuration = random.randrange(MIN_TAIL_DURATION, MAX_TAIL_DURATION + 1)
+            else:
+                self.__gapDuration = random.randrange(MIN_GAP_DURATION, MAX_GAP_DURATION + 1)
+            self.__creatingGap = not self.__creatingGap
+        else:
+            self.__gapDuration -= 1
+        
+        return self.__movePlayer()
