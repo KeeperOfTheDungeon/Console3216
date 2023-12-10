@@ -225,7 +225,35 @@ class Logic:
         pass
 
     def __updatePlayer(self, player: Player, joystick: Joystick) -> bool:
-        pass
+        playerUpdated: bool = False
+
+        if self.__updateOccursThisTick(player.getSpeed()):
+            self.__updateCell(player, False)
+            self.__setDirectionForPlayer(player)
+
+            if joystick.isButtonTop():
+                player.activateBoost()
+            else:
+                player.deactivateBoost()
+            
+            if joystick.isButtonBody() and not player.isItemActive():
+                player.activateItem()
+                self.__status.soundStatus = SOUND_ITEM_ACTIVATE
+                if player.getItem() == ITEM_CLEAR:
+                    self.clearField()
+            
+            if not player.update():
+                self.__status.gameOver = True
+                if self.__winner != DRAW:
+                    self.__winner = DRAW
+                elif player.getName() == PLAYER_1:
+                    self.__winner = PLAYER_2
+                else:
+                    self.__winner = PLAYER_1
+            
+            playerUpdated = True
+        
+        return playerUpdated
 
     def __maybeAbsorbItem(self):
         pass
