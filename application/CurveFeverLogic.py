@@ -275,7 +275,14 @@ class Logic:
         pass
 
     def __havePlayersCollided(self, pos1: Position, pos2: Position, dir1: int, dir2: int) -> bool:
-        pass
+        dx: int = abs(int(pos1.x) - int(pos2.x))
+        dy: int = abs(int(pos1.y) - int(pos2.y))
+        player1Horizontal: bool = dir1 == LEFT or dir1 == RIGHT
+        player2Horizontal: bool = dir2 == LEFT or dir2 == RIGHT
+        oppositeDirection: bool = (dir1 != dir2) and (player1Horizontal == player2Horizontal)
+        
+        # TODO bitwise XOR operation with boolean, seems to work in Python as well
+        return (dx + dy == 0) or ((dx + dy == 1) and oppositeDirection and ((dy == 1) ^ player1Horizontal))
 
     # TODO C++ return Pointer
     def initGame(self, p1_joystick: Joystick, p2_joystick: Joystick) -> GameStatus:
