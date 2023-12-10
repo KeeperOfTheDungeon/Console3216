@@ -97,4 +97,12 @@ class CurveFeverView:
         pass
 
     def playSound(self, soundId: int):
+        for i in range(0, 256, 5):
+            if soundId == SOUND_ITEM_COLLECT:
+                Sound.playSound(i, 9, 100)
+            elif soundId == SOUND_ITEM_ACTIVATE:
+                Sound.playSound(255 - i, 9, 100)
+            elif soundId == SOUND_GAMEOVER:
+                Sound.playSound(60, 9, 100)
+
         pass
