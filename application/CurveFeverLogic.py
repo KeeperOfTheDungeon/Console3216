@@ -256,6 +256,22 @@ class Logic:
         return playerUpdated
 
     def __maybeAbsorbItem(self):
+        if self.__currentItem != NO_ITEM:
+            pos1: Position = self.__player1.getPosition()
+            pos2: Position = self.__player2.getPosition()
+
+            if self.__itemPosition.x == pos1.x and self.__itemPosition.y == pos1.y:
+                self.__player1.setItem(self.__currentItem)
+                self.__currentItem = NO_ITEM
+                self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, STATE_EMPTY)
+                self.__status.soundStatus = SOUND_ITEM_COLLECT
+            elif self.__itemPosition.x == pos2.x and self.__itemPosition.y == pos2.y:
+                self.__player2.setItem(self.__currentItem)
+                self.__currentItem = NO_ITEM
+                self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, STATE_EMPTY)
+                self.__status.soundStatus = SOUND_ITEM_COLLECT
+        else:
+            self.__maybeGenerateItem()
         pass
 
     def __havePlayersCollided(self, pos1: Position, pos2: Position, dir1: int, dir2: int) -> bool:
