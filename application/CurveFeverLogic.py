@@ -1,3 +1,5 @@
+import random
+
 # #include "CurveFeverPlayer.h"
 from CurveFeverPlayer import Item, Player, Position
 # #include "Joystick.h"
@@ -192,6 +194,34 @@ class Logic:
         pass
 
     def __maybeGenerateItem(self):
+        # TODO C++ Source:
+        # uint32_t randNum = random(100);
+        # random() is an Arduino Function, upper bound -> exclusive
+        randNum: int = random.randrange(100)
+        x: int = int(random.randrange(FIELD_WIDTH))
+        y: int = int(random.randrange(FIELD_HEIGHT))
+
+        if self.__getCellState(x, y) == STATE_EMPTY:
+            self.__itemPosition.x = x
+            self.__itemPosition.y = y
+
+            if randNum < PROBABILITY_ITEM_CLEAR:
+                self.__currentItem = ITEM_CLEAR
+            elif randNum < PROBABILITY_ITEM_WALL + PROBABILITY_ITEM_CLEAR:
+                self.__currentItem = ITEM_WALL
+            elif randNum < PROBABILITY_ITEM_SLOW + PROBABILITY_ITEM_WALL + PROBABILITY_ITEM_CLEAR:
+                self.__currentItem = ITEM_SLOW
+            else:
+                self.__currentItem = NO_ITEM
+            
+            if self.__currentItem != NO_ITEM:
+                cellState: int = STATE_ITEM_SLOW
+                if self.__currentItem == ITEM_WALL:
+                    cellState = STATE_ITEM_WALL
+                elif self.__currentItem == ITEM_CLEAR:
+                    cellState = STATE_ITEM_CLEAR
+                
+                self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, cellState, True)
         pass
 
     def __updatePlayer(self, player: Player, joystick: Joystick) -> bool:
