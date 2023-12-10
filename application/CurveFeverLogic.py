@@ -150,7 +150,34 @@ class Logic:
 
     # TODO C++ return Pointer
     def move(self):
-        pass
+        if not self.__status.gameOver:
+            self.__status.updateCount = 0
+            self.__status.clearScreen = False
+
+            self.__status.soundStatus = NO_SOUND
+            player1Updated: bool = self.__updatePlayer(self.__player1, self.__joystick1)
+            player2Updated: bool = self.__updatePlayer(self.__player2, self.__joystick2)
+
+            self.__status.player1Boost = self.__player1.getBoost()
+            self.__status.player2Boost = self.__player2.getBoost()
+
+            # Has there been an update?
+            if (player1Updated or player2Updated) and not self.__status.gameOver:
+                self.__maybeAbsorbItem()
+
+                if not self.__status.clearScreen:
+                    self.__setWinnerAfterValidMove(player1Updated, player2Updated)
+
+                    if player1Updated:
+                        self.__updateCell(self.__player1, True)
+                    
+                    if player2Updated:
+                        self.__updateCell(self.__player2, True)
+
+            self.__gameTicks += 1
+        
+        # TODO return value is an address in C++
+        return self.__status
 
     def getWinner(self) -> int:
-        pass
+        return self.__winner
