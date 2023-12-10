@@ -96,34 +96,41 @@ class Player:
         return self.__item
     
     def getSpeed(self) -> int:
-        pass
+        return self.__speed
 
     def activateBoost(self):
+        if self.__boost > 0 and not self.isItemActive():
+            self.__speed = FAST
         pass
 
     def deactivateBoost(self):
+        if self.getSpeed() == FAST:
+            self.__speed = REGULAR
         pass
 
     def resetBoost(self):
+        self.__boost = MAX_BOOST
         pass
 
     def getBoost(self) -> int:
-        pass
+        return self.__boost
 
     def isItemActive(self) -> bool:
-        pass
+        return self.__itemActive
 
     def activateItem(self):
         pass
 
     def getItemDuration(self) -> int:
-        pass
+        return self.__itemDuration
 
     def isCreatingGap(self) -> bool:
-        pass
+        return self.__creatingGap
 
     def isFasterThan(self, other: Player) -> bool:
-        pass
+        faster: bool = (self.__speed == FAST and other.__speed != FAST) or (self.__speed == REGULAR and other.__speed == SLOW):
+        # TODO C++ definition has no return
+        return faster
 
     def reset(self):
         pass
