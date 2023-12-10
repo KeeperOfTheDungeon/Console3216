@@ -119,6 +119,13 @@ class Player:
         return self.__itemActive
 
     def activateItem(self):
+        if not self.isItemActive() and self.__item != NO_ITEM:
+            self.deactivateBoost()
+            self.__itemActive = True
+            if self.getItem() == ITEM_SLOW:
+                self.__speed = SLOW
+            elif self.getItem() == ITEM_CLEAR:
+                self.__itemDuration = 1
         pass
 
     def getItemDuration(self) -> int:
@@ -133,6 +140,11 @@ class Player:
         return faster
 
     def reset(self):
+        self.setPosition(0, 0)
+        self.resetBoost()
+        self.setItem(NO_ITEM)
+        self.__direction = UP
+        self.__speed = REGULAR
         pass
 
     def update(self) -> bool:
