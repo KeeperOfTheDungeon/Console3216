@@ -115,7 +115,38 @@ class Logic:
 
     # TODO C++ return Pointer
     def initGame(self, p1_joystick: Joystick, p2_joystick: Joystick) -> GameStatus:
-        pass
+        self.__joystick1 = p1_joystick
+        self.__joystick2 = p2_joystick
+        self.__gameTicks = 0
+        self.__currentItem = 0
+        self.__itemPosition.x = 0
+        self.__itemPosition.y = 0
+        self.__winner = DRAW
+
+        Player.setBounds(FIELD_WIDTH, FIELD_HEIGHT)
+
+        self.__player1.setName(PLAYER_1)
+        self.__player2.setName(PLAYER_2)
+
+        self.__player1.reset()
+        self.__player1.setPosition(1, FIELD_HEIGHT / 2)
+        self.__player1.setDirection(RIGHT)
+
+        self.__player2.reset()
+        self.__player2.setPosition(FIELD_WIDTH - 1, FIELD_HEIGHT / 2)
+        self.__player2.setDirection(LEFT)
+
+        self.__status.gameOver = False
+        self.__status.clearScreen = True
+        self.__status.cellUpdates = self.__cellUpdates;
+        self.__status.updateCount = 0
+        self.__status.soundStatus = 0
+        self.__status.player1Boost = self.__player1.getBoost()
+        self.__status.player2Boost = self.__player2.getBoost()
+
+        self.__clearField()
+        # TODO return value is an address in C++
+        return self.__status
 
     # TODO C++ return Pointer
     def move(self):
