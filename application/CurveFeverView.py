@@ -2,6 +2,13 @@
 # #include "CurveFeverLogic.h"
 from CurveFeverLogic import CellUpdate
 
+# TODO C++ includes:
+# #include "inc/CurveFeverView.h"
+# #include "inc/CurveFeverLogic.h"
+# #include "display.h"
+# #include "numericDisplay.h"
+# #include "Sound.h"
+
 # TODO C++: #define EMPTY_COLOR Display::getColor(0, 0, 0);
 EMPTY_COLOR: int = Display.getColor(0, 0, 0) # Display::getColor(0, 0, 0);
 PLAYER_1_COLOR_1: int = Display.getColor(7, 0, 0) # Display::getColor(7, 0, 0);
@@ -15,7 +22,25 @@ ITEM_3_COLOR: int = Display.getColor(3, 3, 3) # Display::getColor(3, 3, 3);
 
 class CurveFeverView:
     def __getColorOfState(state: int) -> int:
-        pass
+        color: int = EMPTY_COLOR
+        # TODO C++ source was switch/case
+        # TODO C++ source never used PLAYER_1_COLOR_2, assuming bug
+        if state == STATE_PLAYER_1:
+            color = PLAYER_1_COLOR_1
+        elif state == STATE_PLAYER_2:
+            color = PLAYER_2_COLOR_1 # TODO C++ source used PLAYER_2_COLOR_2
+        elif state == STATE_ITEM_SLOW:
+            color = ITEM_1_COLOR
+        elif state == STATE_ITEM_WALL:
+            color = ITEM_2_COLOR
+        elif state == STATE_ITEM_CLEAR:
+            color = ITEM_3_COLOR
+        elif state == STATE_TAIL_1:
+            color = PLAYER_1_COLOR_2 # TODO C++ source used PLAYER_1_COLOR_1
+        elif state == STATE_TAIL_2:
+            color = PLAYER_2_COLOR_2 # TODO C++ source used PLAYER_2_COLOR_1
+        
+        return color
 
     # TODO C++: void printGameName(char *name);
     def printGameName(self, name: int):
