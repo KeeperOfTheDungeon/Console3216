@@ -112,6 +112,25 @@ class Logic:
         pass
 
     def __setDirectionForPlayer(self, player: Player):
+        # TODO C++ Source:
+        # Joystick* joystick = this->joystick1;
+        joystick: Joystick = self.__joystick1
+        if player.getName() == PLAYER_2:
+            joystick = self.__joystick2
+        
+        direction: int
+        if joystick.isLeft():
+            direction = LEFT
+        elif joystick.isRight():
+            direction = RIGHT
+        elif joystick.isUp():
+            direction = UP
+        elif joystick.isDown():
+            direction = DOWN
+        else:
+            direction = player.getDirection()
+        
+        player.setDirection(direction)
         pass
 
     def __updateOccursThisTick(self, speed: int) -> bool:
