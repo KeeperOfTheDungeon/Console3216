@@ -95,38 +95,38 @@ class Player:
     def getItem(self) -> Item:
         return self.__item
     
-    def getSpeed() -> int:
+    def getSpeed(self) -> int:
         pass
 
-    def activateBoost():
+    def activateBoost(self):
         pass
 
-    def deactivateBoost():
+    def deactivateBoost(self):
         pass
 
-    def resetBoost():
+    def resetBoost(self):
         pass
 
-    def getBoost() -> int:
+    def getBoost(self) -> int:
         pass
 
-    def isItemActive() -> bool:
+    def isItemActive(self) -> bool:
         pass
 
-    def activateItem():
+    def activateItem(self):
         pass
 
-    def getItemDuration() -> int:
+    def getItemDuration(self) -> int:
         pass
 
-    def isCreatingGap() -> bool:
+    def isCreatingGap(self) -> bool:
         pass
 
-    def isFasterThan(Player* other) -> bool:
+    def isFasterThan(self, other: Player) -> bool:
         pass
 
-    def reset():
+    def reset(self):
         pass
 
-    def update() -> bool:
+    def update(self) -> bool:
         pass
