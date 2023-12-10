@@ -33,10 +33,14 @@ class Position:
 
 
 class Player:
+    # TODO C++ Source:
+    # Outside of scope: uint8_t Player::width = 0;
+    #                   uint8_t Player::height = 0;
+
     # C++: static uint8_t width;
-    width: int
+    width: int = 0
     # C++: static uint8_t height;
-    height: int
+    height: int = 0
 
     def __init__(self):
         self.__name: int
@@ -55,28 +59,38 @@ class Player:
 
     @classmethod
     def setBounds(cls, width: int, height: int):
+        cls.width = width
+        cls.height = height
         pass
 
     def setName(self, name: int):
+        self.__name = name
         pass
 
     def getName(self) -> int:
-        pass
+        return self.__name
 
     def setPosition(self, x: int, y: int):
+        self.__position.x = x
+        self.__position.y = y
         pass
 
     def getPosition(self) -> Position:
-        pass
+        return self.__position
 
     def setDirection(self, direction: int):
+        if (self.__direction == UP or self.__direction == DOWN) ^ (direction == UP or direction == DOWN):
+            self.__direction = direction
         pass
 
     def getDirection(self) -> int:
-        pass
+        return self.__direction
 
     def setItem(self, item: Item):
+        if self.__item == NO_ITEM or item == NO_ITEM:
+            self.__item == item
+            self.__itemDuration = ITEM_DURATION
         pass
 
     def getItem(self) -> Item:
-        pass
+        return self.__item
