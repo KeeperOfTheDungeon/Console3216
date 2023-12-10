@@ -81,9 +81,16 @@ class Logic:
         pass
 
     def __getCellState(self, x: int, y: int) -> int:
-        pass
+        return self.__field[x][y]
 
     def __setCellState(self, x: int, y: int, state: int, publish: bool=False):
+        self.__field[x][y] = state
+
+        if publish:
+            self.__cellUpdates[self.__status.updateCount].x = x
+            self.__cellUpdates[self.__status.updateCount].y = y
+            self.__cellUpdates[self.__status.updateCount].state = state
+            self.__status.updateCount += 1
         pass
     
     def __clearField(self):
