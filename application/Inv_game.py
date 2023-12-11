@@ -128,6 +128,8 @@ class Invaders(Game):
         pass
 
     def playGame(self):
+        self.play()
+        self.draw()
         pass
 
     def process(self):
@@ -138,19 +140,26 @@ class Invaders(Game):
         pass
 
     def _movePlayer(self):
+        # TODO C++ source commented out, method body empty
         pass
 
     def _drawField(self):
+        # TODO C++ source commented out, method body empty
         pass
 
     def _checkBoundarys(self) -> int:
+        # TODO C++ source has no definition
         pass
 
     # TODO Rechtschreibfehler behoben: _checkColosion -> _checkCollision
     def _checkCollision(self) -> bool:
-        pass
+        # TODO C++ source commented out, method body almost empty
+        collision: bool = False
+
+        return collision
 
     def _prepareSquad(self):
+        # TODO C++ source has no definition
         pass
 
     def _restart(self):
