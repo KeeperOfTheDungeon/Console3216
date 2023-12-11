@@ -16,6 +16,8 @@ import Inv_squad
 import Joystick
 
 import NumericDisplay
+import Display
+
 
 PADLE_SOUND_EFFECT_LEFT = 35
 PADLE_SOUND_EFFECT_RIGHT = 36
@@ -97,6 +99,22 @@ class Invaders(Game):
         pass
 
     def draw(self):
+        textColor: int = Display.getColor(0, 2, 5)
+        
+        Display.clearDisplay()
+        Display.drawText(self._name, 4, 4, textColor, 1)
+        self._drawField()
+
+        NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
+
+        self._pilot.draw()
+        self._ufo.draw()
+        self._pilotProjectile.draw()
+        self._invadersProjectile.draw()
+
+        self._squad.draw()
+
+        Display.refresh()
         pass
 
     def prepareDemo(self):
