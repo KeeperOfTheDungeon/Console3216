@@ -42,7 +42,8 @@ class Curve(Game):
 
         # TODO C++ Source (Empty brackets {}):
         # Curve::Curve(Joystick &leftJoystick, Joystick &rightJoystick) : Game(leftJoystick, rightJoystick, (char *) "CURV") {}
-        Game(leftJoystick, rightJoystick, "CURV")
+        # Old code: Game(leftJoystick, rightJoystick, "CURV")
+        super().__init__(self.__leftJoystick, self.__rightJoystick, "CURV")
 
     def prepareDemo(self):
         self.__view.clearScreen()
