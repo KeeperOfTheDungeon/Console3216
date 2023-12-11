@@ -1,11 +1,11 @@
 # #include "game.h"
 import Game
 # #include "inv_pilot.h"
-from Inv_pilot import Pilot
+import Inv_pilot
 # #include "inv_ufo.h"
 import Inv_ufo
 # #include "inv_projectile.h"
-from Inv_projectile import Projectile
+import Inv_projectile
 # #include "inv_alien.h"
 import Inv_alien
 # #include "inv_squad.h"
@@ -13,12 +13,28 @@ import Inv_squad
 # #include "Joystick.h"
 import Joystick
 
+PADLE_SOUND_EFFECT_LEFT = 35
+PADLE_SOUND_EFFECT_RIGHT = 36
+
+PILOT_DEFAULT_X_POSITION = 16
+PILOT_DEFAULT_Y_POSITION = 15
+
+POINTS_UFO = 100
+UFO_APERANCE_PROPABILITY = 50
+
 
 class Invaders(Game):
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
-        self._pilot: Pilot
-        self._pilotProjectile: Projectile
-        self._invadersProjectile: Projectile
+        # TODO Super constructor call
+        super().__init__(leftJoystick, rightJoystick, "INV")
+
+        self._pilot: Inv_pilot.Pilot
+        
+        self._pilotProjectile: Inv_projectile.Projectile
+        self._invadersProjectile: Inv_projectile.Projectile
+
+        self._ufo: Inv_ufo.Ufo
+        self._squad: Inv_squad.Squad
 
         self._player1Points: int
 
@@ -26,6 +42,13 @@ class Invaders(Game):
         # TODO Rechtschreibfehler behoben: _movePrescaller -> _movePrescaler
         self._movePrescaler: int
         self._active: bool
+
+        # TODO Perhaps leftJoystick needs to be instance variable
+        self._pilot.init(leftJoystick)
+        self._restart()
+
+        self._pilotProjectile.setDirection(False)
+        self._invadersProjectile.setDirection(True)
 
     def play(self):
         pass
@@ -62,4 +85,13 @@ class Invaders(Game):
         pass
 
     def _restart(self):
+        self._pilot.setPosition(PILOT_DEFAULT_X_POSITION, PILOT_DEFAULT_Y_POSITION)
+        self._pilotProjectile.deActivate()
+        self._invadersProjectile.deActivate()
+
+        self._squad.prepareSquad()
+
+        self._player1Points = 0
+        # TODO Game method
+        self._timeStart()
         pass
