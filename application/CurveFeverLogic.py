@@ -1,7 +1,7 @@
 import random
 
 # #include "CurveFeverPlayer.h"
-from CurveFeverPlayer import Item, Player, Position
+import CurveFeverPlayer
 # #include "Joystick.h"
 import Joystick
 
@@ -69,11 +69,11 @@ class Logic:
         self.__cellUpdates: CellUpdate = [] * MAX_CHANGE_COUNT
 
         self.__status: GameStatus
-        self.__player1: Player
-        self.__player2: Player
+        self.__player1: CurveFeverPlayer.Player
+        self.__player2: CurveFeverPlayer.Player
         self.__winner: int
-        self.__currentItem: Item
-        self.__itemPosition: Position
+        self.__currentItem: CurveFeverPlayer.Item
+        self.__itemPosition: CurveFeverPlayer.Position
         self.__gameTicks: int
 
         # TODO C++: uint8_t field[FIELD_WIDTH][FIELD_HEIGHT];
@@ -104,16 +104,16 @@ class Logic:
             for j in range(FIELD_HEIGHT):
                 self.__field[i][j] = STATE_EMPTY
         
-        p: Position = self.__player1.getPosition()
+        p: CurveFeverPlayer.Position = self.__player1.getPosition()
         self.__setCellState(p.x, p.y, STATE_PLAYER_1, True)
         p = self.__player2.getPosition()
         self.__setCellState(p.x, p.y, STATE_PLAYER_2, True)
 
-        if self.__currentItem != NO_ITEM:
+        if self.__currentItem != CurveFeverPlayer.NO_ITEM:
             self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, itemState, True)
         pass
 
-    def __setDirectionForPlayer(self, player: Player):
+    def __setDirectionForPlayer(self, player: CurveFeverPlayer.Player):
         # TODO C++ Source:
         # Joystick* joystick = this->joystick1;
         joystick: Joystick = self.__joystick1
@@ -122,13 +122,13 @@ class Logic:
         
         direction: int
         if joystick.isLeft():
-            direction = LEFT
+            direction = CurveFeverPlayer.LEFT
         elif joystick.isRight():
-            direction = RIGHT
+            direction = CurveFeverPlayer.RIGHT
         elif joystick.isUp():
-            direction = UP
+            direction = CurveFeverPlayer.UP
         elif joystick.isDown():
-            direction = DOWN
+            direction = CurveFeverPlayer.DOWN
         else:
             direction = player.getDirection()
         
@@ -141,16 +141,16 @@ class Logic:
         # If speed is SLOW this will be true for every fourth tick.
         return self.__gameTicks & (speed - 1) == 0
 
-    def __updateCell(self, player: Player, head: bool):
+    def __updateCell(self, player: CurveFeverPlayer.Player, head: bool):
         state: int = STATE_EMPTY
         name: int = player.getName()
 
         if head:
-            item: Item = player.getItem()
-            if item != NO_ITEM and (not player.isItemActive() or (player.getItemDuration() & 1) != 0):
-                if item == ITEM_SLOW:
+            item: CurveFeverPlayer.Item = player.getItem()
+            if item != CurveFeverPlayer.NO_ITEM and (not player.isItemActive() or (player.getItemDuration() & 1) != 0):
+                if item == CurveFeverPlayer.ITEM_SLOW:
                     state = STATE_ITEM_SLOW
-                elif item == ITEM_WALL:
+                elif item == CurveFeverPlayer.ITEM_WALL:
                     state = STATE_ITEM_WALL
                 else:
                     state = STATE_ITEM_CLEAR
@@ -164,13 +164,13 @@ class Logic:
             else:
                 state = STATE_TAIL_2
         
-        position: Position = player.getPosition()
+        position: CurveFeverPlayer.Position = player.getPosition()
         self.__setCellState(position.x, position.y, state, True)
         pass
 
     def __setWinnerAfterValidMove(self, player1Updated: bool, player2Updated: bool):
-        pos1: Position = self.__player1.getPosition()
-        pos2: Position = self.__player2.getPosition()
+        pos1: CurveFeverPlayer.Position = self.__player1.getPosition()
+        pos2: CurveFeverPlayer.Position = self.__player2.getPosition()
         if self.__havePlayersCollided(pos1, pos2, self.__player1.getDirection(), self.__player2.getDirection()):
             self.__status.gameOver = True
             self.__status.soundStatus = SOUND_GAMEOVER
@@ -206,25 +206,25 @@ class Logic:
             self.__itemPosition.y = y
 
             if randNum < PROBABILITY_ITEM_CLEAR:
-                self.__currentItem = ITEM_CLEAR
+                self.__currentItem = CurveFeverPlayer.ITEM_CLEAR
             elif randNum < PROBABILITY_ITEM_WALL + PROBABILITY_ITEM_CLEAR:
-                self.__currentItem = ITEM_WALL
+                self.__currentItem = CurveFeverPlayer.ITEM_WALL
             elif randNum < PROBABILITY_ITEM_SLOW + PROBABILITY_ITEM_WALL + PROBABILITY_ITEM_CLEAR:
-                self.__currentItem = ITEM_SLOW
+                self.__currentItem = CurveFeverPlayer.ITEM_SLOW
             else:
-                self.__currentItem = NO_ITEM
+                self.__currentItem = CurveFeverPlayer.NO_ITEM
             
-            if self.__currentItem != NO_ITEM:
+            if self.__currentItem != CurveFeverPlayer.NO_ITEM:
                 cellState: int = STATE_ITEM_SLOW
-                if self.__currentItem == ITEM_WALL:
+                if self.__currentItem == CurveFeverPlayer.ITEM_WALL:
                     cellState = STATE_ITEM_WALL
-                elif self.__currentItem == ITEM_CLEAR:
+                elif self.__currentItem == CurveFeverPlayer.ITEM_CLEAR:
                     cellState = STATE_ITEM_CLEAR
                 
                 self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, cellState, True)
         pass
 
-    def __updatePlayer(self, player: Player, joystick: Joystick) -> bool:
+    def __updatePlayer(self, player: CurveFeverPlayer.Player, joystick: Joystick) -> bool:
         playerUpdated: bool = False
 
         if self.__updateOccursThisTick(player.getSpeed()):
@@ -239,7 +239,7 @@ class Logic:
             if joystick.isButtonBody() and not player.isItemActive():
                 player.activateItem()
                 self.__status.soundStatus = SOUND_ITEM_ACTIVATE
-                if player.getItem() == ITEM_CLEAR:
+                if player.getItem() == CurveFeverPlayer.ITEM_CLEAR:
                     self.clearField()
             
             if not player.update():
@@ -256,29 +256,29 @@ class Logic:
         return playerUpdated
 
     def __maybeAbsorbItem(self):
-        if self.__currentItem != NO_ITEM:
-            pos1: Position = self.__player1.getPosition()
-            pos2: Position = self.__player2.getPosition()
+        if self.__currentItem != CurveFeverPlayer.NO_ITEM:
+            pos1: CurveFeverPlayer.Position = self.__player1.getPosition()
+            pos2: CurveFeverPlayer.Position = self.__player2.getPosition()
 
             if self.__itemPosition.x == pos1.x and self.__itemPosition.y == pos1.y:
                 self.__player1.setItem(self.__currentItem)
-                self.__currentItem = NO_ITEM
+                self.__currentItem = CurveFeverPlayer.NO_ITEM
                 self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, STATE_EMPTY)
                 self.__status.soundStatus = SOUND_ITEM_COLLECT
             elif self.__itemPosition.x == pos2.x and self.__itemPosition.y == pos2.y:
                 self.__player2.setItem(self.__currentItem)
-                self.__currentItem = NO_ITEM
+                self.__currentItem = CurveFeverPlayer.NO_ITEM
                 self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, STATE_EMPTY)
                 self.__status.soundStatus = SOUND_ITEM_COLLECT
         else:
             self.__maybeGenerateItem()
         pass
 
-    def __havePlayersCollided(self, pos1: Position, pos2: Position, dir1: int, dir2: int) -> bool:
+    def __havePlayersCollided(self, pos1: CurveFeverPlayer.Position, pos2: CurveFeverPlayer.Position, dir1: int, dir2: int) -> bool:
         dx: int = abs(int(pos1.x) - int(pos2.x))
         dy: int = abs(int(pos1.y) - int(pos2.y))
-        player1Horizontal: bool = dir1 == LEFT or dir1 == RIGHT
-        player2Horizontal: bool = dir2 == LEFT or dir2 == RIGHT
+        player1Horizontal: bool = dir1 == CurveFeverPlayer.LEFT or dir1 == CurveFeverPlayer.RIGHT
+        player2Horizontal: bool = dir2 == CurveFeverPlayer.LEFT or dir2 == CurveFeverPlayer.RIGHT
         oppositeDirection: bool = (dir1 != dir2) and (player1Horizontal == player2Horizontal)
         
         # TODO bitwise XOR operation with boolean, seems to work in Python as well
@@ -294,18 +294,18 @@ class Logic:
         self.__itemPosition.y = 0
         self.__winner = DRAW
 
-        Player.setBounds(FIELD_WIDTH, FIELD_HEIGHT)
+        CurveFeverPlayer.Player.setBounds(FIELD_WIDTH, FIELD_HEIGHT)
 
         self.__player1.setName(PLAYER_1)
         self.__player2.setName(PLAYER_2)
 
         self.__player1.reset()
         self.__player1.setPosition(1, FIELD_HEIGHT / 2)
-        self.__player1.setDirection(RIGHT)
+        self.__player1.setDirection(CurveFeverPlayer.RIGHT)
 
         self.__player2.reset()
         self.__player2.setPosition(FIELD_WIDTH - 1, FIELD_HEIGHT / 2)
-        self.__player2.setDirection(LEFT)
+        self.__player2.setDirection(CurveFeverPlayer.LEFT)
 
         self.__status.gameOver = False
         self.__status.clearScreen = True

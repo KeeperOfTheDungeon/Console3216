@@ -3,9 +3,12 @@ import Game
 # #include "Joystick.h"
 import Joystick
 # #include "CurveFeverLogic.h"
-from CurveFeverLogic import Logic, GameStatus
+import CurveFeverLogic
 # #include "CurveFeverView.h"
 import CurveFeverView
+
+# Not in C++ includes, but needed for Position class:
+import CurveFeverPlayer
 
 # TODO C++ includes:
 # #include "inc/curve_game.h"
@@ -13,14 +16,15 @@ import CurveFeverView
 # #include <numericDisplay.h>
 # #include <sine.h>
 # #include "MIDI_Control_Commands.h"
+import MIDI_Control_Commands
 
 # TODO C++ Defines
 TICKS_TO_EVENT: int = 10
 TRACK_ID: int = 10
 
 # TODO C++ Global Vars.
-demoTop: Position
-demoBottom: Position
+demoTop: CurveFeverPlayer.Position
+demoBottom: CurveFeverPlayer.Position
 ticks: int
 
 clearDemoLines: bool = False
@@ -29,9 +33,12 @@ class Curve(Game):
     # TODO C++ Konstruktor: Curve(Joystick & leftJoystick, Joystick & rightJoystick);
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
         # TODO C++: GameStatus* gameStatus;
-        self.__gameStatus: GameStatus
-        self.__logic: Logic
+        self.__gameStatus: CurveFeverLogic.GameStatus
+        self.__logic: CurveFeverLogic.Logic
         self.__view: CurveFeverView
+
+        self.__leftJoystick: Joystick = leftJoystick
+        self.__rightJoystick: Joystick = rightJoystick
 
         # TODO C++ Source (Empty brackets {}):
         # Curve::Curve(Joystick &leftJoystick, Joystick &rightJoystick) : Game(leftJoystick, rightJoystick, (char *) "CURV") {}
@@ -42,160 +49,160 @@ class Curve(Game):
 
         demoTop.x = 0
         demoTop.y = 2
-        demoBottom.x = FIELD_WIDTH - 1
+        demoBottom.x = CurveFeverLogic.FIELD_WIDTH - 1
         demoBottom.y = 13
         ticks = 0
         pass
 
     def playDemo(self):
-        self.__view.setBoost(PLAYER_1, 0)
-        self.__view.setBoost(PLAYER_2, 0)
+        self.__view.setBoost(CurveFeverLogic.PLAYER_1, 0)
+        self.__view.setBoost(CurveFeverLogic.PLAYER_2, 0)
         self.__view.setTime(0)
 
         # TODO C++ Source:
         # CellUpdate posUpdate[FIELD_WIDTH * FIELD_HEIGHT]
-        posUpdate: CellUpdate = [FIELD_WIDTH] * FIELD_HEIGHT
+        posUpdate: CurveFeverLogic.CellUpdate = [CurveFeverLogic.FIELD_WIDTH] * CurveFeverLogic.FIELD_HEIGHT
 
         updateCount: int = 0
         i: int = 0
 
-        for x in range(FIELD_WIDTH):
-            for y in range(FIELD_HEIGHT):
+        for x in range(CurveFeverLogic.FIELD_WIDTH):
+            for y in range(CurveFeverLogic.FIELD_HEIGHT):
                 # TODO Copy paste from C++, bulk edited to Python syntax and sorted based on x
                 # Unique numbers for x and y:
                 # x = 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26
                 # y = 4, 5, 6, 7, 8, 9, 10
                 if x == 4 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 4 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 4 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 4 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 4 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 5 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 5 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 6 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 6 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 7 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 7 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 8 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 8 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 10 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 11 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 12 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 13 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 14 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 16 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 17 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 17 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 18 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 18 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 18 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 19 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 19 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 19 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 20 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 20 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 20 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 22 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 22 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 22 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 22 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 22 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 23 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 24 and y == 10:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 25 and y == 9:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 26 and y == 4:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 26 and y == 5:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 26 and y == 6:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 26 and y == 7:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 elif x == 26 and y == 8:
-                    posUpdate[i].state = STATE_ITEM_1
+                    posUpdate[i].state = CurveFeverLogic.STATE_ITEM_1
                 else:
-                    posUpdate[i].state = STATE_EMPTY
+                    posUpdate[i].state = CurveFeverLogic.STATE_EMPTY
 
                 if clearDemoLines:
                     if x < demoTop.x and y == demoTop.y:
-                        posUpdate[i].state = STATE_PLAYER_1
+                        posUpdate[i].state = CurveFeverLogic.STATE_PLAYER_1
                     if x < demoBottom.x and y == demoBottom.y:
-                        posUpdate[i].state = STATE_PLAYER_2
+                        posUpdate[i].state = CurveFeverLogic.STATE_PLAYER_2
                 else:
                     if x > demoTop.x and y == demoTop.y:
-                        posUpdate[i].state = STATE_PLAYER_1
+                        posUpdate[i].state = CurveFeverLogic.STATE_PLAYER_1
                     if x > demoBottom.x and y == demoBottom.y:
-                        posUpdate[i].state = STATE_PLAYER_2
+                        posUpdate[i].state = CurveFeverLogic.STATE_PLAYER_2
                 
                 posUpdate[i].x = x
                 posUpdate[i].y = y
@@ -203,10 +210,10 @@ class Curve(Game):
         demoTop.x += 1
         demoBottom.x += 1
 
-        if demoTop.x >= FIELD_WIDTH:
+        if demoTop.x >= CurveFeverLogic.FIELD_WIDTH:
             clearDemoLines = not clearDemoLines
             demoTop.x = 0
-            demoBottom.x = FIELD_WIDTH - 1
+            demoBottom.x = CurveFeverLogic.FIELD_WIDTH - 1
         
         updateCount = 255
         self.__view.updatePixels(posUpdate, updateCount)
@@ -232,7 +239,7 @@ class Curve(Game):
 
         # TODO C++ Source:
         # gameStatus = logic.initGame(joystickLeft, joystickRight);
-        self.__gameStatus = self.__logic.initGame(leftJoystick, rightJoystick)
+        self.__gameStatus = self.__logic.initGame(self.__leftJoystick, self.__rightJoystick)
 
         pass
 
@@ -240,8 +247,9 @@ class Curve(Game):
         ticks += 1
         gameStatus = self.__logic.move()
 
-        self.__view.setBoost(PLAYER_1, self.__gameStatus.player1Boost)
-        self.__view.setBoost(PLAYER_2, self.__gameStatus.player2Boost)
+        self.__view.setBoost(CurveFeverLogic.PLAYER_1, self.__gameStatus.player1Boost)
+        self.__view.setBoost(CurveFeverLogic.PLAYER_2, self.__gameStatus.player2Boost)
+        # TODO time not defined
         self.__view.setTime(int(time / 1000))
 
         if self.__gameStatus.clearScreen:
@@ -250,7 +258,7 @@ class Curve(Game):
         self.__view.updatePixels(self.__gameStatus.cellUpdates, self.__gameStatus.updateCount)
 
         if self.__gameStatus.gameOver:
-            self.state = GAME_STATE_END
+            self.state = CurveFeverLogic.GAME_STATE_END
         
         self.__view.playSound(self.__gameStatus.soundStatus)
         pass
@@ -269,6 +277,6 @@ class Curve(Game):
             # playGame();
         # }
 
-        if self.state == GAME_STATE_PLAY:
+        if self.state == CurveFeverLogic.GAME_STATE_PLAY:
             self.playGame()
         pass

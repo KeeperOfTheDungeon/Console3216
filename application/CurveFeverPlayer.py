@@ -1,5 +1,7 @@
 import random
 
+from CurveFeverPlayer import Player
+
 RIGHT = 0
 UP = 1
 LEFT = 2
@@ -160,7 +162,7 @@ class Player:
         return self.__creatingGap
 
     def isFasterThan(self, other: Player) -> bool:
-        faster: bool = (self.__speed == FAST and other.__speed != FAST) or (self.__speed == REGULAR and other.__speed == SLOW):
+        faster: bool = (self.__speed == FAST and other.__speed != FAST) or (self.__speed == REGULAR and other.__speed == SLOW)
         # TODO C++ definition has no return
         return faster
 
