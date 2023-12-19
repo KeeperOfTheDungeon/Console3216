@@ -2,6 +2,8 @@
 # #include "sprite.h"
 import Sprite
 
+# TODO inv_guests.cpp does not exist, prototype from inc/inv_guests.h
+
 
 class Guests(Sprite):
     def __init__(self):
