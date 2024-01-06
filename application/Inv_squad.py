@@ -78,8 +78,8 @@ class Squad:
     def descent(self):
         pass
 
-    # 
-    def checkColision(self, xPos: int, yPos: int) -> int:
+    # TODO C++ Source had a typo: checkColision
+    def checkCollision(self, xPos: int, yPos: int) -> int:
         # TODO Unused in C++ source
         # alienXPos: int
         # alienYPos: int
