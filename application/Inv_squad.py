@@ -74,8 +74,22 @@ class Squad:
                     self._aliens[squadCounter].move(direction)
         pass
 
+    # TODO No definition in C++ source
     def descent(self):
         pass
 
+    # 
     def checkColision(self, xPos: int, yPos: int) -> int:
-        pass
+        # TODO Unused in C++ source
+        # alienXPos: int
+        # alienYPos: int
+        points: int = 0
+
+        for squadCounter in range(ALIENS_SQUAD_MAX_SIZE):
+            if self._aliens[squadCounter].isActive():
+                if self._aliens[squadCounter].getXPos() == xPos:
+                    if self._aliens[squadCounter].getYPos() == yPos:
+                        self._aliens[squadCounter].deActivate()
+                        points = self._aliens[squadCounter].getPoints()
+        
+        return points
