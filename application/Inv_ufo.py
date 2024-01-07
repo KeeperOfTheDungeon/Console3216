@@ -30,7 +30,15 @@ class Ufo(Sprite):
 
     # Im Original mit Schreibfehler
     def checkCollision(self, xPos: int) -> bool:
-        pass
+        # TODO Serial not implemented
+        # Serial.print(xPos)
+        # Serial.print(" : ")
+        # Serial.println(self._xPos)
 
+        if (self.isActive()) and (self._xPos == xPos):
+            return True
+        return False
+
+    # TODO C++ Source body empty
     def explode(self):
         pass
