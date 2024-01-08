@@ -27,15 +27,25 @@ class Ball(Sprite):
         self._moved: int
 
     def setPosition(self, newXPos: int, newYPos: int):
+        self._intPosX = newXPos << 4
+        self._intPosY = newYPos << 4
+
+        self._xPos = newXPos
+        self._yPos = newYPos
         pass
 
     def increaseSpeed(self):
+        if self._movementPrescaler > 0:
+            self._movementPrescaler -= 1
         pass
 
     def decreaseSpeed(self):
+        self._movementPrescaler += 1
         pass
 
     def setSpeed(self, newSpeed: int):
+        self._movementPrescaler = newSpeed
+        self._movementCounter = 0
         pass
 
     def move(self):
@@ -92,7 +102,10 @@ class Ball(Sprite):
         pass
 
     def hasMoved(self) -> bool:
-        pass
+        if self._moved == 1:
+            return True
+        
+        return False
 
     def _correctVector(self):
         # Comments from C++ Source
