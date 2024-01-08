@@ -61,24 +61,72 @@ class Pong(Game):
         NumericDisplay.NumericDisplay.test()
 
     def play(self):
+        self._movePrescaler += 1
+
+        # TODO
+        if self._movePrescaler & 0x4:
+            self._movePlayer()
+            self._movePrescaler = 0
+        
+        self._ball.move()
+
+        if self._ball.hasMoved():
+            if not self._checkCollision():
+                # C++ Source was Switch/case
+                boundries = self._checkBoundaries()
+                if boundries == EVENT_PLAYER_LEFT_POINT:
+                    self._player1Points += 1
+                    self._restart()
+                elif boundries == EVENT_PLAYER_RIGHT_POINT:
+                    self._player2Points += 1
+                    self._restart()
+                elif (boundries == EVENT_BOUNCE_TOP) or (boundries == EVENT_BOUNCE_BOTTOM):
+                    self._ball.bounceY
         pass
 
     def draw(self):
         pass
 
     def prepareDemo(self):
+        # Game.py variable
+        self._player1Type = Game.PLAYER_TYPE_AI_0
+        self._player2Type = Game.PLAYER_TYPE_AI_0
+
+        self._prepareGame()
         pass
 
     def playDemo(self):
+        self._playGame()
         pass
 
     def prepareGame(self):
+        self._player1Points = 0
+        self._player2Points = 0
+
+        NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_LEFT, self._player1Points)
+        NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_RIGHT, self._player2Points)
+
+        self._restart()
+        self._timeStart()
         pass
 
     def playGame(self):
+        self.play()
+        self.draw()
+
+        if self._ballSpeedPrescaler > BALL_SPEED_INCREASE_FACTOR:
+            self._ballSpeedPrescaler = 0
+            self._ball.increaseSpeed()
+        
+        self._ballSpeedPrescaler += 1
         pass
 
     def process(self):
+        Game.Game.process()
+
+        if self._state == Game.GAME_STATE_PLAY:
+            if (self._player1Points == 10) or (self._player2Points == 10):
+                self._state = Game.GAME_STATE_END
         pass
 
     def _movePlayer(self):
