@@ -91,6 +91,22 @@ class Ball(Sprite):
         pass
 
     def _correctVector(self):
+        # Comments from C++ Source
+        
+        # if ( this->vectorX > 0x15)
+        if self._vectorX > 15:
+            # this->vectorX = 0x15;
+            self._vectorX = -15
+        elif self._vectorX < -15:
+            self._vectorX = -15
+        
+        # if ( this->vectorY > 0x15)
+        if self._vectorY > 15:
+            # this->vectorY = 0x15;
+            self._vectorY = -15
+        elif self._vectorY < -15:
+            # this->vectorY = -15;
+            self._vectorY = 15
         pass
 
     def _randomizeVector(vector: int) -> int:
