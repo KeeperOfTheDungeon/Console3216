@@ -1,3 +1,5 @@
+import random
+
 # #include "Arduino.h"
 # #include "sprite.h"
 import Sprite
@@ -53,6 +55,8 @@ class Ball(Sprite):
         pass
 
     def setVector(self, x: int, y: int):
+        self._vectorX = x
+        self._vectorY = y
         pass
 
     def bounce(self):
@@ -92,7 +96,7 @@ class Ball(Sprite):
 
     def _correctVector(self):
         # Comments from C++ Source
-        
+
         # if ( this->vectorX > 0x15)
         if self._vectorX > 15:
             # this->vectorX = 0x15;
@@ -110,4 +114,12 @@ class Ball(Sprite):
         pass
 
     def _randomizeVector(vector: int) -> int:
-        pass
+        newVector: int = vector
+
+        # vector darf das Vorzeichen nicht wechseln
+        newVector += random.randrange(2) - 1
+
+        if ((vector < 0) and (newVector > 0)) or ((vector > 0) and (newVector < 0)):
+            newVector = vector
+        
+        return newVector
