@@ -26,6 +26,9 @@ BALL_SPEED_INCREASE_FACTOR: int = 150
 PADDLE_SOUND_EFFECT_LEFT: int = 35
 PADDLE_SOUND_EFFECT_RIGHT: int = 36
 
+# TODO
+aa: int
+
 
 class Pong(Game):
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
@@ -56,7 +59,7 @@ class Pong(Game):
 
         self._restart()
 
-        self._fieldLineColor = Display.getColor(0, 7, 0)
+        self._fieldLineColor = Display.Display.getColor(0, 7, 0)
 
         NumericDisplay.NumericDisplay.test()
 
@@ -85,6 +88,21 @@ class Pong(Game):
         pass
 
     def draw(self):
+        aa += 1
+        textColor: int = Display.Display.getColor(0, 2, aa >> 5)
+
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
+
+        Display.Display.clearDisplay()
+        Display.Display.drawText(self._name, 4, 4, textColor, 1)
+
+        self._drawField()
+
+        self._paddleLeft.draw()
+        self._paddleRight.draw()
+        self._ball.draw()
+
+        Display.Display.refresh()
         pass
 
     def prepareDemo(self):
@@ -133,6 +151,11 @@ class Pong(Game):
         pass
 
     def _drawField(self):
+        for i in range(Display.DISPLAY_Y_EXTEND):
+            if i % 2 == 0:
+                Display.Display.drawPixel(15, i, self._fieldLineColor)
+            else:
+                Display.Display.drawPixel(16, i, self._fieldLineColor)
         pass
 
     # TODO C++: void computerMove(Paddle * paddle, bool direction);
