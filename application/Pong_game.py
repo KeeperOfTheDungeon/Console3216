@@ -159,7 +159,22 @@ class Pong(Game):
         pass
 
     # TODO C++: void computerMove(Paddle * paddle, bool direction);
-    def _computerMove(paddle: Paddle, direction: bool):
+    def _computerMove(self, paddle: Paddle, direction: bool):
+        ballY: int = self._ball.getYPos()
+        ballX: int = self._ball.getXPos()
+        paddleY: int = paddle.getYPos()
+
+        if direction:
+            if ballX < Display.DISPLAY_X_EXTEND / 2:
+                return
+        else:
+            if ballX > Display.DISPLAY_X_EXTEND / 2:
+                return
+        
+        if ballY > paddleY + 2:
+            paddle.move(False)
+        elif ballY < paddleY + 2:
+            paddle.move(True)
         pass
 
     # TODO Rechtschreibfehler behoben: _checkBoundarys -> _checkBoundaries
