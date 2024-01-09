@@ -148,6 +148,31 @@ class Pong(Game):
         pass
 
     def _movePlayer(self):
+        # Player 1
+        if self._player1Type > Game.PLAYER_TYPE_HUMAN:
+            self._computerMove(self._paddleLeft, False)
+        else:
+            if self._joystickLeft.isUp():
+                self._paddleLeft.move(True)
+            if self._joystickLeft.isDown():
+                self._paddleLeft.move(False)
+            if self._joystickLeft.isRight():
+                self._paddleLeft.bend()
+            else:
+                self._paddleLeft.unBend()
+        
+        # Player 2
+        if self._player2Type > Game.PLAYER_TYPE_HUMAN:
+            self._computerMove(self._paddleRight, False)
+        else:
+            if self._joystickRight.isUp():
+                self._paddleRight.move(True)
+            if self._joystickRight.isDown():
+                self._paddleRight.move(False)
+            if self._joystickRight.isRight():
+                self._paddleRight.bend()
+            else:
+                self._paddleRight.unBend()
         pass
 
     def _drawField(self):
