@@ -24,12 +24,13 @@ class SW_Projectile:
      * @return bool directionLeft
     """
     def getDirection(self) -> bool:
-        pass
+        return self.__directionLeft
 
     def getValid(self) -> bool:
-        pass
+        return self.__valid
 
     def setValid(self, valid: bool):
+        self.__valid = valid
         pass
 
     """
@@ -38,6 +39,7 @@ class SW_Projectile:
     * falls ist sie rechts.
     """
     def setDirection(self, directionLeft: bool):
+        self.__directionLeft = directionLeft
         pass
 
     """
@@ -45,14 +47,14 @@ class SW_Projectile:
      * @return int xCoordinate
     """
     def getXCoordinate(self) -> int:
-        pass
+        return self.__xCoordinate
 
     """
      * Diese Methode gibt die y-Koordinate eines Projektils zurück.
      * @return int yCoordinate
     """
     def getYCoordinate(self) -> int:
-        pass
+        return self.__yCoordinate
 
     """
      * Diese Methode setzt die x-Koordinate eines Projektils auf die
@@ -60,6 +62,7 @@ class SW_Projectile:
      * @param int xCoordinate
     """
     def setXCoordinate(self, xCoordinate: int):
+        self.__xCoordinate = xCoordinate
         pass
 
     """
@@ -68,6 +71,7 @@ class SW_Projectile:
      * @param int yCoordinate
     """
     def setYCoordinate(self, yCoordinate: int):
+        self.__yCoordinate = yCoordinate
         pass
 
     """
@@ -75,4 +79,8 @@ class SW_Projectile:
      * nach links oder rechts zu bewegen.
     """
     def move(self):
+        if self.getDirection():
+            self.setXCoordinate(self.getXCoordinate() - 1)
+        else:
+            self.setXCoordinate(self.getXCoordinate() + 1)
         pass
