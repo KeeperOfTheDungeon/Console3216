@@ -53,6 +53,12 @@ class Space_Wars(Game):
         self._shipRight.setBitMap()
 
     def play(self):
+        # /* The Game-Logic will be placed here. */
+        self._shipLeft.moveShipAndShot(self._joystickLeft, self._projectileManagement)
+        self._shipRight.moveShipAndShot(self._joystickRight, self._projectileManagement)
+        self._projectileManagement.manageProjectiles()
+        self._shipLeft.checkHitWithProjectile(self._projectileManagement)
+        self._shipRight.checkHitWithProjectile(self._projectileManagement)
         pass
 
     def draw(self, STATE: int):
