@@ -6,7 +6,7 @@ import Game
 # #include "pong_ball.h"
 from Pong_ball import Ball
 # #include "pong_paddle.h"
-from Pong_Paddle import Paddle
+import Pong_Paddle
 # #include "Joystick.h"
 import Joystick
 
@@ -36,8 +36,8 @@ class Pong(Game):
         super().__init__(leftJoystick, rightJoystick, "PONG")
 
         self._ball: Ball
-        self._paddleLeft: Paddle
-        self._paddleRight: Paddle
+        self._paddleLeft: Pong_Paddle.Paddle
+        self._paddleRight: Pong_Paddle.Paddle
 
         self._fieldLineColor: int
 
@@ -184,7 +184,7 @@ class Pong(Game):
         pass
 
     # TODO C++: void computerMove(Paddle * paddle, bool direction);
-    def _computerMove(self, paddle: Paddle, direction: bool):
+    def _computerMove(self, paddle: Pong_Paddle.Paddle, direction: bool):
         ballY: int = self._ball.getYPos()
         ballX: int = self._ball.getXPos()
         paddleY: int = paddle.getYPos()
@@ -204,11 +204,56 @@ class Pong(Game):
 
     # TODO Rechtschreibfehler behoben: _checkBoundarys -> _checkBoundaries
     def _checkBoundaries(self) -> int:
-        pass
+        x: int = self._ball.getXPos()
+        y: int = self._ball.getYPos()
+
+        if x < 0:
+            return EVENT_PLAYER_RIGHT_POINT
+        elif x > Display.DISPLAY_X_EXTEND - 1:
+            return EVENT_PLAYER_LEFT_POINT
+
+        if y <= 0:
+            return EVENT_BOUNCE_TOP
+        elif y >= Display.DISPLAY_Y_EXTEND - 1:
+            return EVENT_BOUNCE_BOTTOM
+            
+        return EVENT_NONE
 
     # TODO Rechtschreibfehler behoben: _checkColision -> _checkCollision
     def _checkCollision(self) -> bool:
-        pass
+        x: int = self._ball.getXPos()
+        y: int = self._ball.getYPos()
+
+        collision: bool = False
+
+        event: int = self._paddleLeft.checkContact(x, y)
+
+        if event == Pong_Paddle.EVENT_NO_BOUNCE:
+            event: int = self._paddleRight.checkContact(x, y)
+            if event != Pong_Paddle.EVENT_NO_BOUNCE:
+                # Serial.print("event")
+                # Serial.println(event)
+
+                # Serial.print(" : X =")
+                # Serial.print(x)
+                # Serial.print(" : Y =")
+                # Serial.print(y)
+                # TODO pyserial
+                pass
+    
+            # C++ Source was Switch/case
+            # if event == Pong_Paddle.EVENT_NO_BOUNCE:
+            #     pass
+            # el
+            if event in [Pong_Paddle.EVENT_BOUNCE_MIDDLE, Pong_Paddle.EVENT_BOUNCE_LOW, Pong_Paddle.EVENT_BOUNCE_HIGH]:
+                collision = True
+                self._ball.bounceX()
+            elif event == Pong_Paddle.EVENT_BOUNCE_MIDDLE_BEND:
+                collision = True
+                self._ball.bounceX()
+                self._ball.increaseSpeed()
+        
+        return collision
 
     def _restart(self):
         angle: int = random.randrange(16)
