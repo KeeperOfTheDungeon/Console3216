@@ -136,15 +136,23 @@ class Space_Wars(Game):
         pass
 
     def playSoundShot(self):
+        self._sounds.SpaceSounds.playSoundShipShot()
         pass
 
     def playSoundCollision(self):
+        self._sounds.SpaceSounds.playSoundProjectileCollision()
         pass
 
+    # TODO No function definition in C++ Source
     def _drawField(self):
         pass
 
     def _drawMiddleBorder(self):
+        for i in range(16):
+            if i % 2 == 0:
+                Display.Display.drawPixel(SW_Constants.SHIP_LEFT_RIGHT_BORDER + 1, i, self._middleBorderColor)
+            else:
+                Display.Display.drawPixel(SW_Constants.SHIP_RIGHT_LEFT_BORDER - 1, i, self._middleBorderColor)
         pass
 
     def _restart(self):
@@ -180,7 +188,7 @@ class Space_Wars(Game):
         self._projectileManagement.manageProjectiles()
 
         if yLeft == SW_Constants.BORDER_BOTTOM:
-            self._sounds.playSoundShipShot()
+            self._sounds.SpaceSounds.playSoundShipShot()
             # self._sounds.playSoundShipMove()
             # self._sounds.playSoundShipHasBeenHit()
             # self._sounds.playSoundShipShot()
