@@ -61,7 +61,31 @@ class Space_Wars(Game):
         self._shipRight.checkHitWithProjectile(self._projectileManagement)
         pass
 
-    def draw(self, STATE: int):
+    def draw(self, state: int):
+        Display.Display.clearDisplay()
+
+        if state == SW_Constants.STATE_DEMO:
+            Display.Display.drawText(self._name, 4, 4, self._textColor, 1)
+        elif state == SW_Constants.STATE_PLAY:
+            # /* Something you want to draw in game mode only */
+            self._shipLeft.draw()
+            self._shipRight.draw()
+            self._projectileManagement.draw()
+            self._drawMiddleBorder()
+        elif state == SW_Constants.STATE_SHOW_WINNER:
+            if self._shipLeft.getShipLives() == 0:
+                Display.Display.drawText("P2", 4, 0, self._textColor, 1)
+                Display.Display.drawText("WIN", 4, 8, self._textColor, 1)
+            if self._shipRight.getShipLives() == 0:
+                Display.Display.drawText("P1", 4, 0, self._textColor, 1)
+                Display.Display.drawText("WIN", 4, 8, self._textColor, 1)
+            self._gameFinish = True
+        
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
+
+        # /* We will call the draw methods from ships and proteciles here */
+
+        Display.Display.refresh()
         pass
 
     def prepareDemo(self):
