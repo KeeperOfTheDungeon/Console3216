@@ -100,7 +100,31 @@ class Paddle(Sprite):
         pass
 
     def checkContact(self, xPos: int, yPos: int):
-        pass
+        event: int = EVENT_NO_BOUNCE
+        # TODO Unused variable
+        # bend: bool = self.isBend()
+
+        if self._orientation:
+            if not (self._xPos == xPos):
+                return EVENT_NO_BOUNCE
+        else:
+            if not (self._xPos + 1 == xPos):
+                return EVENT_NO_BOUNCE
+        
+        if self._yPos == yPos:
+            event = EVENT_BOUNCE_HIGH
+        elif self._yPos + self._yExtend - 1 == yPos:
+            event = EVENT_BOUNCE_LOW
+        elif (yPos > self._yPos) and (yPos < self._yPos + self._yExtend):
+            event = EVENT_BOUNCE_MIDDLE
+        
+        # TODO pyserial
+        # Serial.print("event :");
+        # Serial.println(event);
+        # Serial.print("****sound :");
+        # Sound::playSound(this->bounceSoundEffect, 9, 100);
+        
+        return event
 
 # inline void Paddle::setBounceSoundEffect(uint8_t newBounceSoundEffect)
 # {
