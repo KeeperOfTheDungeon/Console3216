@@ -2,6 +2,8 @@
 # #include "sprite.h"
 import Sprite
 
+import Display
+
 EVENT_NO_BOUNCE: int = 0
 EVENT_BOUNCE_MIDDLE: int = 1
 EVENT_BOUNCE_LOW: int = 2
@@ -15,11 +17,17 @@ PADDLE_HOLD: int = 2
 
 class Paddle(Sprite):
     def __init__(self):
+        # TODO Super constructor call
+        super().__init__(0, 0, 2, 5)
         self._orientation: bool
         self._status: int
         self._bounceSoundEffect: int
 
+        self.unBend()
+        self.activate()
+
     def setOrientation(self, paddleOrientation: bool):
+        self._orientation = paddleOrientation
         pass
 
     def setBounceSoundEffect(self, newBounceSoundEffect: int):
@@ -27,15 +35,68 @@ class Paddle(Sprite):
         self._bounceSoundEffect = newBounceSoundEffect
 
     def bend(self):
+        self._bitmap[0] = 0xff00
+        self._bitmap[1] = 0x0000
+        self._bitmap[2] = 0x0000
+        self._bitmap[3] = 0x0000
+        self._bitmap[4] = 0xff00
+
+        self._bitmap[5] = 0x0000
+        self._bitmap[6] = 0x0ff0
+        self._bitmap[7] = 0x0ff0
+        self._bitmap[8] = 0x0ff0
+        self._bitmap[9] = 0x0000
+
+        if self._orientation:
+            # TODO pyserial
+            # Serial.println("mirror!")
+            self.mirrorY()
+        else:
+            # Serial.println("no mirror!")
+            pass
+        
+        if self._status == PADDLE_IDLE:
+            self._status = PADDLE_BEND
+        else:
+            # TODO commented out in C++ source
+            # this->status = PADDLE_HOLD
+            pass
         pass
 
     def unBend(self):
+        self._bitmap[0] = 0xff00
+        self._bitmap[1] = 0x00ff
+        self._bitmap[2] = 0x00ff
+        self._bitmap[3] = 0x00ff
+        self._bitmap[4] = 0xff00
+
+        self._bitmap[5] = 0x0000
+        self._bitmap[6] = 0x0000
+        self._bitmap[7] = 0x0000
+        self._bitmap[8] = 0x0000
+        self._bitmap[9] = 0x0000
+
+        if self._orientation:
+            self.mirrorY()
+        
+        self._status = PADDLE_IDLE
         pass
 
+    # TODO C++ Source body empty
     def isBend(self) -> bool:
         pass
 
     def move(self, direction: bool):
+        if direction:
+            if self._yPos > 0:
+                # TODO C++ Source:
+                # Sprite::move(0,-1);
+                super().move(0, -1)
+        else:
+            if self._yPos < Display.DISPLAY_Y_EXTEND - self._yExtend:
+                # TODO C++ Source:
+                # Sprite::move(0,1);
+                super().move(0, 1)
         pass
 
     def checkContact(self, xPos: int, yPos: int):
