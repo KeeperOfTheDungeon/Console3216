@@ -70,6 +70,15 @@ class Space_Wars(Game):
         pass
 
     def playDemo(self):
+        self._shipLeft.setShipLives(3)
+        self._shipRight.setShipLives(3)
+        self._currentState = SW_Constants.STATE_PLAY
+        self._gameFinish = False
+
+        self.demo()
+        
+        self.draw(SW_Constants.STATE_DEMO)
+        self._currentState = SW_Constants.STATE_PLAY
         pass
 
     def playGame(self):
