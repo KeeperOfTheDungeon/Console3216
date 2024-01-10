@@ -76,12 +76,14 @@ class Space_Wars(Game):
         self._gameFinish = False
 
         self.demo()
-        
+
         self.draw(SW_Constants.STATE_DEMO)
         self._currentState = SW_Constants.STATE_PLAY
         pass
 
     def playGame(self):
+        self.play()
+        self.draw(self._currentState)
         pass
 
     def process(self):
