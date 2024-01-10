@@ -15,9 +15,12 @@ from SW_ProjectileManagement import ProjectileManagement
 # #include "SpaceSounds.h"
 import SpaceSounds
 
+import NumericDisplay
 
 class Space_Wars(Game):
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+        # TODO Super constructor call
+        super().__init__(leftJoystick, rightJoystick, "SWAR")
         # TODO
         self._textColor: int = Display.getColor(0, 2, 5)
         self._middleBorderColor: int = 0xFFFF
@@ -32,6 +35,22 @@ class Space_Wars(Game):
 
         self._shipLeft: Ship
         self._shipRight: Ship
+
+        self._restart()
+
+        NumericDisplay.NumericDisplay.test()
+
+        self._timeStart()
+
+        # Comment from C++ source:
+        # Here you have to initialize important variables for your ships
+        self._shipLeft.setShipColor(0xFFFF)
+        self._shipLeft.setOrientation(SW_Constants.SHIP_LEFT)
+        self._shipLeft.setBitMap()
+        
+        self._shipRight.setShipColor(0xFFFF)
+        self._shipRight.setOrientation(SW_Constants.SHIP_RIGHT)
+        self._shipRight.setBitMap()
 
     def play(self):
         pass
