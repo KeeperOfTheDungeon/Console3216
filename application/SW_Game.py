@@ -47,7 +47,7 @@ class Space_Wars(Game):
         self._shipLeft.setShipColor(0xFFFF)
         self._shipLeft.setOrientation(SW_Constants.SHIP_LEFT)
         self._shipLeft.setBitMap()
-        
+
         self._shipRight.setShipColor(0xFFFF)
         self._shipRight.setOrientation(SW_Constants.SHIP_RIGHT)
         self._shipRight.setBitMap()
@@ -86,6 +86,9 @@ class Space_Wars(Game):
         pass
 
     def _restart(self):
+        self._shipLeft.setShipLives(3)
+        self._shipRight.setShipLives(3)
+        self._timeStart()
         pass
 
     def _callTestMethod(self):
