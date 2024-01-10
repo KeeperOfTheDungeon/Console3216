@@ -132,6 +132,7 @@ class Space_Wars(Game):
         pass
 
     def demo(self):
+        # /* Here we want to show a little clip that shows how the game will be played */
         pass
 
     def playSoundShot(self):
@@ -153,4 +154,43 @@ class Space_Wars(Game):
         pass
 
     def _callTestMethod(self):
+        # /* place your test-code here */
+        # /* this->shipLeft.moveShipAndShot(this->joystickLeft);
+        # this->shipRight.moveShipAndShot(this->joystickRight);*/
+
+        # TODO C++ Source had static variables:
+        # static bool checkCollision = false;
+
+        # static uint8_t xLeft = 0;
+        # static uint8_t yLeft = 0;
+
+        # static uint8_t xRight = 30;
+        # static uint8_t yRight = 0;
+        checkCollision: bool = False
+
+        xLeft: int = 0
+        yLeft: int = 0
+
+        xRight: int = 30
+        yRight: int = 0
+
+        self._projectileManagement.shoot(xLeft, yLeft, False)
+
+        self._projectileManagement.shoot(xRight, yRight, True)
+        self._projectileManagement.manageProjectiles()
+
+        if yLeft == SW_Constants.BORDER_BOTTOM:
+            self._sounds.playSoundShipShot()
+            # self._sounds.playSoundShipMove()
+            # self._sounds.playSoundShipHasBeenHit()
+            # self._sounds.playSoundShipShot()
+            yLeft = 0
+        else:
+            yLeft += 1
+        
+        if yRight == SW_Constants.BORDER_BOTTOM:
+            yRight = 0
+            checkCollision = not checkCollision
+        else:
+            yRight += 1
         pass
