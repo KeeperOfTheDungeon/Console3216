@@ -87,6 +87,18 @@ class Space_Wars(Game):
         pass
 
     def process(self):
+        super().process()
+        NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_LEFT, self._shipLeft.getShipLives())
+        NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_RIGHT, self._shipRight.getShipLives())
+        # Abfrage auf Spielende
+        if (self._shipLeft.getShipLives() == 0) or (self._shipRight.getShipLives() == 0):
+            self._currentState = SW_Constants.STATE_SHOW_WINNER
+        
+        if self._gameFinish and (self._joystickLeft.isButtonTop() or
+                                 self._joystickLeft.isButtonBody() or
+                                 self._joystickRight.isButtonTop() or
+                                 self._joystickRight.isButtonBody()):
+            self._state = SW_Constants.GAME_STATE_END
         pass
 
     def demo(self):
