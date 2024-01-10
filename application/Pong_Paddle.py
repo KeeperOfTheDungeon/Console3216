@@ -4,6 +4,8 @@ import Sprite
 
 import Display
 
+import Sound
+
 EVENT_NO_BOUNCE: int = 0
 EVENT_BOUNCE_MIDDLE: int = 1
 EVENT_BOUNCE_LOW: int = 2
@@ -124,6 +126,8 @@ class Paddle(Sprite):
         # Serial.print("****sound :");
         # Sound::playSound(this->bounceSoundEffect, 9, 100);
         
+        Sound.Sound.playSound(self._bounceSoundEffect, 9, 100)
+
         return event
 
 # inline void Paddle::setBounceSoundEffect(uint8_t newBounceSoundEffect)
