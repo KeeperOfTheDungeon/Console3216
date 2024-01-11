@@ -2,6 +2,7 @@
 # #include "game.h"
 import Game
 
+import Display
 
 class TetrisDemo:
     def __init__(self):
@@ -23,4 +24,12 @@ class TetrisDemo:
                            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     def update(self, delta: int):
+        Display.Display.clearDisplay()
+
+        for x in range(32):
+            for y in range(16):
+                if self.__map[y][x] == 1:
+                    Display.Display.drawPixel(x, y, Display.Display.getColor(2, 0, 0))
+        
+        Display.Display.refresh()
         pass
