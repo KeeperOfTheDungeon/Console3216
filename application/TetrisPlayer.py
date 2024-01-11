@@ -168,6 +168,11 @@ class TetrisPlayer:
         pass
 
     def __rotateIfPossible(self, tetrom: TetrisTetrom.TetrisTetrom, clockwise: bool):
+        if self.__canRotateTetrom(tetrom, clockwise):
+            if clockwise:
+                tetrom.rotateRight()
+            else:
+                tetrom.rotateLeft()
         pass
 
     def returnPlayerPoints(self) -> int:
