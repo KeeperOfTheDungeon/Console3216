@@ -81,6 +81,30 @@ class TetrisPlayer:
         return tetrom
 
     def __logicalUpdate(self, delta: int):
+        tetrom = self.getCurrentTetrom()
+        
+        # Move Tetrom down, Softdrop OR create new Tetrom
+        # Update Map too.
+
+        posY: int = tetrom.getY()
+        posX: int = tetrom.getX()
+
+        if not self.__canMoveTetrom(tetrom, 0, 1): # +Y direction!!! change <- TODO Comment from C++ Source
+            # Will collide -> place it now. Generate new.
+            if posY < 0:
+                self.__status = TetrisPlayerStatus.LOST
+            else:
+                self.__placeOnMap(tetrom)
+                for locY in range(16):
+                    if self.checkLine(locY):
+                        self.removeLine(locY)
+                        self.playerpoints += 10
+                
+                self.__assignNextTetroms()
+        else:
+            posY += 1
+            tetrom.setPosition(posX, posY)
+        # TODO C++ Source had a lot of code commented out
         pass
 
     def __hasCollisions(self, tetrom: TetrisTetrom.TetrisTetrom) -> bool:
