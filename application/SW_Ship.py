@@ -214,6 +214,7 @@ class Ship(Sprite):
      * Die Methode reduziert die verbleibende Anzahl des Spielerlebens um Eins.
     """
     def decrementShipLives(self):
+        self._shipLives -= 1
         pass
 
     """
@@ -221,6 +222,21 @@ class Ship(Sprite):
      * @param orientation
     """
     def setOrientation(self, orientation: int):
+        self._orientation = orientation;
+        if orientation == 0:
+            self._shipBorderArray[0] = SW_Constants.SHIP_LEFT_RIGHT_BORDER
+            self._shipBorderArray[1] = SW_Constants.SHIP_LEFT_LEFT_BORDER
+            self._shipBorderArray[2] = SW_Constants.SHIP_LEFT_UPPER_BORDER
+            self._shipBorderArray[3] = SW_Constants.SHIP_LEFT_BOTTOM_BORDER
+            self._xPos = SW_Constants.SHIP_LEFT_LEFT_BORDER
+            self._yPos = (SW_Constants.SHIP_LEFT_BOTTOM_BORDER + SW_Constants.SHIP_LEFT_UPPER_BORDER) / 2
+        else:
+            self._shipBorderArray[0] = SW_Constants.SHIP_RIGHT_RIGHT_BORDER
+            self._shipBorderArray[1] = SW_Constants.SHIP_RIGHT_LEFT_BORDER
+            self._shipBorderArray[2] = SW_Constants.SHIP_RIGHT_UPPER_BORDER
+            self._shipBorderArray[3] = SW_Constants.SHIP_RIGHT_BOTTOM_BORDER
+            self._xPos = SW_Constants.SHIP_RIGHT_RIGHT_BORDER
+            self._yPos = (SW_Constants.SHIP_RIGHT_BOTTOM_BORDER + SW_Constants.SHIP_RIGHT_UPPER_BORDER) / 2
         pass
 
     """
