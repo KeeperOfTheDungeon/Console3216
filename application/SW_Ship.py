@@ -169,8 +169,45 @@ class Ship(Sprite):
      * @param joystick
      * @param projectile (optional)
      * @param projectileManagement (optional)
+
+     TODO Method was marked as TODO in C++ Source
     """
     def moveShipAndShot(self, joystick: Joystick, projectileManagement: SW_ProjectileManagement.ProjectileManagement):
+        if (((self._orientation == 0) and joystick.isLeft() and (self.getXPos() > SW_Constants.SHIP_LEFT_LEFT_BORDER)) or
+            ((self._orientation != 0) and joystick.isLeft() and (self.getXPos() > SW_Constants.SHIP_RIGHT_LEFT_BORDER))):
+            if self._timerTickMove == 0:
+                self.move(-1, 0)
+                self._timerTickMove = SW_Constants.SHIP_TICK_MOVE + 1
+                # Serial.println("Move left")
+        elif (((self._orientation == 0) and joystick.isUp() and (self.getYPos() > SW_Constants.SHIP_LEFT_UPPER_BORDER)) or
+            ((self._orientation != 0) and joystick.isUp() and (self.getYPos() > SW_Constants.SHIP_RIGHT_UPPER_BORDER))):
+            if self._timerTickMove == 0:
+                self.move(0, -1)
+                self._timerTickMove = SW_Constants.SHIP_TICK_MOVE + 1
+                # Serial.println("Move up")
+        elif (((self._orientation == 0) and joystick.isRight() and (self.getXPos() < SW_Constants.SHIP_LEFT_RIGHT_BORDER - 2)) or
+            ((self._orientation != 0) and joystick.isRight() and (self.getXPos() < SW_Constants.SHIP_RIGHT_RIGHT_BORDER - 2))):
+            if self._timerTickMove == 0:
+                self.move(1, 0)
+                self._timerTickMove = SW_Constants.SHIP_TICK_MOVE + 1
+                # Serial.println("Move right")
+        elif (((self._orientation == 0) and joystick.isDown() and (self.getYPos() < SW_Constants.SHIP_LEFT_BOTTOM_BORDER - 2)) or
+            ((self._orientation != 0) and joystick.isDown() and (self.getYPos() < SW_Constants.SHIP_RIGHT_BOTTOM_BORDER - 2))): # TODO C++ Source checked SHIP_LEFT_BOTTOM_BORDER, assuming Bug
+            if self._timerTickMove == 0:
+                self.move(0, 1)
+                self._timerTickMove = SW_Constants.SHIP_TICK_MOVE + 1
+                # Serial.println("Move down")
+        
+        if ((joystick.getControlStatus(Joystick.JOYSTICK_SWITCH_BUTTON_TOP) == Joystick.JOYSTICK_STATUS_PRESSED) or
+            (joystick.getControlStatus(Joystick.JOYSTICK_SWITCH_BUTTON_BODY) == Joystick.JOYSTICK_STATUS_PRESSED)):
+            if self._timerTickShot == 0:
+                self._shot(projectileManagement)
+                self._timerTickShot = SW_Constants.SHIP_TICK_SHOT + 1
+        
+        if self._timerTickMove > 0:
+            self._timerTickMove -= 1
+        if self._timerTickShot > 0:
+            self._timerTickShot -= 1
         pass
 
     """
