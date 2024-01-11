@@ -207,6 +207,12 @@ class TetrisPlayer:
         pass
 
     def drawNextTetroms(self, offsetX: int, offsetY: int):
+        color: int = Display.Display.getColor(0, 0, 2)
+
+        for x in range(4):
+            for y in range(4):
+                if self.__nextTetrom.getPixel(x, y):
+                    Display.Display.drawPixel(x + offsetX, y + offsetY, color)
         pass
 
     def update(self, delta: int):
