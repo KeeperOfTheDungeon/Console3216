@@ -1,3 +1,7 @@
+import time
+import psutil
+import os
+
 # #include "game.h"
 import Game
 # #include "Joystick.h"
@@ -50,6 +54,10 @@ class TetrisGame(Game):
             self.buttonBody: bool = False
 
     def prepareDemo(self):
+        # TODO pyserial
+        # Serial.println("Tetris Game prepare Demo!")
+        self.__tetrisDemo = TetrisDemo()
+        self.__lastTime = self.millis()
         pass
 
     def playDemo(self):
@@ -63,3 +71,27 @@ class TetrisGame(Game):
 
     def updateStatus(self):
         pass
+
+    # TODO Replacement for Arduinos millis() function
+    """
+    /**
+    * Original Arduino function returns the process uptime.
+    * This function can return Process uptime or System uptime.
+    *
+    * Method 1: Calculates the process uptime.
+    * Grabs current process.
+    * Grabs current time in unix timestamp format.
+    * Subtracts unix timestamp of process creation time.
+    * Returns result in milliseconds.
+    *
+    * Method 2: Calculates the system uptime.
+    *
+    * Grabs current time in unix timestamp format.
+    * Subtracts unix timestamp of boot time.
+    * Returns result in milliseconds.
+    */
+    """
+    def millis(self) -> int:
+        p = psutil.Process(os.getpid())
+        return int(time.time() - p.create_time())
+        # return int(time.time() - psutil.boot_time())
