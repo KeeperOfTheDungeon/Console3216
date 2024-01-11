@@ -146,6 +146,12 @@ class TetrisPlayer:
         pass
 
     def __changeMap(self, x: int, y: int, value: int):
+        # Serial.println("===========")
+        # Serial.println(x)
+        # Serial.println(y)
+        if ((y >= 0) and (x >= 0) and (y < 16) and (x < 10)):
+            # Serial.println("Map changed value")
+            self.__map[y][x] = value
         pass
 
     def __moveIfPossible(self, tetrom: TetrisTetrom.TetrisTetrom, xOffset: int, yOffset: int):
