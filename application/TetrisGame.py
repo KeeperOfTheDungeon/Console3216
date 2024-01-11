@@ -3,24 +3,27 @@ import Game
 # #include "Joystick.h"
 import Joystick
 # #include "inc/TetrisDemo.h"
-from TetrisDemo import TetrisDemo
+import TetrisDemo
 # #include "inc/TetrisLogic.h"
-from TetrisLogic import TetrisLogic, TetrisPlayer
+import TetrisLogic
 
 
 class TetrisGame(Game):
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+        # TODO Super constructor call
+        super().__init__(leftJoystick, rightJoystick, "TTRS")
+
         # TODO C++: TetrisDemo* tetrisDemo;
         self.__tetrisDemo: TetrisDemo
         # TODO C++: TetrisLogic* tetrisLogic;
         self.__tetrisLogic: TetrisLogic
         # TODO C++: TetrisPlayer* playerLeft;
-        self.__playerLeft: TetrisPlayer
+        self.__playerLeft: TetrisLogic.TetrisPlayer
         # TODO C++: TetrisPlayer* playerRight;
-        self.__playerRight: TetrisPlayer
+        self.__playerRight: TetrisLogic.TetrisPlayer
 
-        self.__statusLeftJoystickOld: JoystickStatus
-        self.__statusRightJoystickOld: JoystickStatus
+        self.__statusLeftJoystickOld: self.__JoystickStatus
+        self.__statusRightJoystickOld: self.__JoystickStatus
 
         self.__lastTime: int = 0
 
@@ -31,6 +34,9 @@ class TetrisGame(Game):
 
         self.__joystickRightRepeatLeft: int = 0
         self.__joystickRightRepeatRight: int = 0
+
+        # TODO pyserial
+        # Serial.println("Tetris Game Konstruktor!")
 
     # TODO C++: struct JoystickStatus {...};
     class __JoystickStatus:
