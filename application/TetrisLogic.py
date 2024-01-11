@@ -1,8 +1,7 @@
 from enum import Enum
 
 # #include "inc/TetrisPlayer.h"
-from TetrisPlayer import TetrisPlayer
-
+import TetrisPlayer
 
 class TetrisLogicStatus(Enum):
     UPDATING = 0
@@ -15,11 +14,18 @@ class TetrisLogic:
         self.__status: TetrisLogicStatus
 
         # TODO C++: TetrisPlayer* playerLeft;
-        self.playerLeft: TetrisPlayer
+        self.playerLeft: TetrisPlayer.TetrisPlayer
         # TODO C++: TetrisPlayer* playerRight;
-        self.playerRight: TetrisPlayer
+        self.playerRight: TetrisPlayer.TetrisPlayer
 
-    def __handleStatus(self, player: TetrisPlayer):
+        self.initializeGame()
+
+    def __handleStatus(self, player: TetrisPlayer.TetrisPlayer):
+        # TODO C++ Source was Switch/case
+        if player.getStatus() == TetrisPlayer.TetrisPlayerStatus.PLAYING:
+            pass
+        elif player.getStatus() == TetrisPlayer.TetrisPlayerStatus.LOST:
+            self.__status = TetrisLogicStatus.ENDSCREEN
         pass
 
     def __drawBorders(self):
