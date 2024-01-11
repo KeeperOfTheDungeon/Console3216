@@ -57,6 +57,7 @@ class Ship(Sprite):
      * Sie setzt die Hitboxen auf die abzufragenden Felder der Raumschiffe.
     """
     def _setHitBoxes(self):
+        # TODO C++ Source body empty
         pass
 
     """
@@ -65,6 +66,38 @@ class Ship(Sprite):
      * Methode setOrientation() für jede Schiffsinstanz aufgerufen werden.
     """
     def setBitMap(self):
+        if self._orientation == 0:
+            # TODO pyserial
+            # Serial.println("Bitmap LeftShip called")
+            self.setPosition(5, 5)
+            self._bitmap[0] = self._shipColor
+            self._bitmap[1] = 0x0000
+            self._bitmap[2] = self._shipColor
+            self._bitmap[3] = self._shipColor
+            self._bitmap[4] = self._shipColor
+            self._bitmap[5] = self._shipColor
+            self._bitmap[6] = 0x0000
+            self._bitmap[7] = self._shipColor
+            self._bitmap[8] = 0x0000
+            self._bitmap[9] = 0x0000
+            self._bitmap[10] = 0x0000
+            self._bitmap[11] = 0x0000
+        else:
+            # TODO pyserial
+            # Serial.println("Bitmap RightShip called");
+            self.setPosition(25, 5)
+            self._bitmap[0] = 0x0000
+            self._bitmap[1] = self._shipColor
+            self._bitmap[2] = 0x0000
+            self._bitmap[3] = self._shipColor
+            self._bitmap[4] = self._shipColor
+            self._bitmap[5] = self._shipColor
+            self._bitmap[6] = self._shipColor
+            self._bitmap[7] = 0x0000
+            self._bitmap[8] = self._shipColor
+            self._bitmap[9] = 0x0000
+            self._bitmap[10] = 0x0000
+            self._bitmap[11] = 0x0000
         pass
 
     """
