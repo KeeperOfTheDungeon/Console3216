@@ -202,6 +202,10 @@ class TetrisPlayer:
         pass
 
     def update(self, delta: int):
+        self.__deltaSum += delta
+        if self.__deltaSum >= self.__updateDelay:
+            self.__logicalUpdate(delta)
+            self.__deltaSum = 0
         pass
 
     def getCurrentTetrom(self) -> TetrisTetrom.TetrisTetrom:
