@@ -111,7 +111,27 @@ class TetrisPlayer:
         pass
 
     def __mapEmpty(self, x: int, y: int) -> bool:
-        pass
+        # xxxooooxxx
+        # xxxooooxxx
+        # xxxooooxxx
+        # xxxxxxxxxx
+        # xxxxxxxxxx
+        # Pretend everyting out of bounds is a wall
+        # Except for the ceiling!!
+        if ((x > 9) or ( x < 0)):
+            return False
+        
+        # Which way is up? || y < 0
+        # Next 2 TODOs from C++ Source:
+        # TODO: remove ceiling check
+        # TODO: check for ceiling height overdraw manually
+        if y > 15:
+            return False
+        
+        if y < 0:
+            return True
+        
+        return self.__map[y][x] == 0
 
     def __placeOnMap(self, tetrom: TetrisTetrom.TetrisTetrom):
         pass
