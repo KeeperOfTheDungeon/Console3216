@@ -42,7 +42,18 @@ class TetrisPlayer:
         pass
 
     def __canRotateTetrom(self, tetrom: TetrisTetrom.TetrisTetrom, clockwise: bool) -> bool:
-        pass
+        if clockwise:
+            tetrom.rotateRight()
+        else:
+            tetrom.rotateLeft()
+        
+        collides: bool = self.__hasCollisions(tetrom)
+
+        if clockwise:
+            tetrom.rotateLeft()
+        else:
+            tetrom.rotateRight()
+        return not collides
 
     def __initializeTetroms(self):
         self.__currentTetrom = self.__generateTetrom()
