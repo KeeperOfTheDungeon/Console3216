@@ -244,13 +244,14 @@ class Ship(Sprite):
      * @return uint8_t orientation
     """
     def getOrientation(self) -> int:
-        pass
+        return self._orientation
 
     """
      * Diese Methode ändert die Farbe aller Pixel eines Raumschiffes.
      * @param color
     """
     def setShipColor(self, color: int):
+        self._shipColor = color
         pass
 
     """
@@ -261,6 +262,7 @@ class Ship(Sprite):
     """
     # TODO C++: void setShipPixelColor(uint8_t *pixel, uint16_t *color);
     def setShipPixelColor(self, pixel: int, color: int):
+        # TODO C++ Source body empty
         pass
 
     """
@@ -268,6 +270,7 @@ class Ship(Sprite):
      * @param tickValue
     """
     def setTickMoveDefault(self, tickValue: int):
+        # TODO C++ Source provided no definition
         pass
 
     """
@@ -275,6 +278,7 @@ class Ship(Sprite):
      * @param livesValue
     """
     def setShipLives(self, livesValue: int):
+        self._shipLives = livesValue
         pass
 
     """
@@ -282,13 +286,14 @@ class Ship(Sprite):
      * @return uint8_t shipLives
     """
     def getShipLives(self) -> int:
-        pass
+        return self._shipLives
 
     """
      * Mit dieser Methode kann der Default-Tickwert der Schusshäufigkeit verändert werden.
      * @param tickValue
     """
     def setTickShotDefault(self, tickValue: int):
+        # TODO C++ Source provided no definition
         pass
 
     """
@@ -296,6 +301,7 @@ class Ship(Sprite):
      * @return uint8_t TickMoveDefault
     """
     def getTickMoveDefault(self) -> int:
+        # TODO C++ Source provided no definition
         pass
 
     """
@@ -304,7 +310,7 @@ class Ship(Sprite):
     """
     # TODO C++: uint8_t *getBorderRightLeftUpperBottom(void);
     def getBorderRightLeftUpperBottom(self) -> int:
-        pass
+        return self._shipBorderArray
 
     """
     /**
@@ -317,4 +323,8 @@ class Ship(Sprite):
      */
     """
     def setBorderRightLeftUpperBottom(self, right: int, left: int, upper: int, bottom: int):
+        self._shipBorderArray[0] = right
+        self._shipBorderArray[1] = left
+        self._shipBorderArray[2] = upper
+        self._shipBorderArray[3] = bottom
         pass
