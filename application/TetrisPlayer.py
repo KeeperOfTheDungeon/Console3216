@@ -201,7 +201,7 @@ class TetrisPlayer:
         pass
 
     def getStatus(self) -> TetrisPlayerStatus:
-        pass
+        return self.__status
 
     def draw(self):
         color: int = self.__mapColor
@@ -243,15 +243,19 @@ class TetrisPlayer:
         pass
 
     def inputRotateClockwise(self):
+        self.__rotateIfPossible(self.getCurrentTetrom(), True)
         pass
 
     def inputRotateCounterClockwise(self):
+        self.__rotateIfPossible(self.getCurrentTetrom(), False)
         pass
 
     def inputMoveLeft(self):
+        self.__moveIfPossible(self.getCurrentTetrom(), -1, 0)
         pass
 
     def inputMoveRight(self):
+        self.__moveIfPossible(self.getCurrentTetrom(), 1, 0)
         pass
 
     def checkLine(self, y: int) -> bool:
