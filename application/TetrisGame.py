@@ -181,6 +181,19 @@ class TetrisGame(Game):
         pass
 
     def updateStatus(self):
+        self.__statusLeftJoystickOld.left = self._joystickLeft.isLeft()
+        self.__statusLeftJoystickOld.right = self._joystickLeft.isRight()
+        self.__statusLeftJoystickOld.up = self._joystickLeft.isUp()
+        self.__statusLeftJoystickOld.down = self._joystickLeft.isDown()
+        self.__statusLeftJoystickOld.buttonTop = self._joystickLeft.isButtonTop()
+        self.__statusLeftJoystickOld.buttonBody = self._joystickLeft.isButtonBody()
+        
+        self.__statusRightJoystickOld.left = self._joystickRight.isLeft()
+        self.__statusRightJoystickOld.right = self._joystickRight.isRight()
+        self.__statusRightJoystickOld.up = self._joystickRight.isUp()
+        self.__statusRightJoystickOld.down = self._joystickRight.isDown()
+        self.__statusRightJoystickOld.buttonTop = self._joystickRight.isButtonTop()
+        self.__statusRightJoystickOld.buttonBody = self._joystickRight.isButtonBody()
         pass
 
     # TODO Replacement for Arduinos millis() function
