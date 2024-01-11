@@ -37,6 +37,35 @@ class TetrisLogic:
         pass
 
     def update(self, delta: int):
+        Display.Display.clearDisplay()
+
+        # TODO C++ Source was Switch/case
+        if self.__status == TetrisLogicStatus.UPDATING:
+            self.__handleStatus(self.playerLeft)
+            self.__handleStatus(self.playerRight)
+
+            # Serial.println("UPDATING")
+            self.playerLeft.update(delta)
+            self.playerRight.update(delta)
+            self.playerLeft.displayPlayerPoints(True)
+            self.playerRight.displayPlayerPoints(False)
+
+            self.__drawBorders()
+            self.playerLeft.drawNextTetroms(12, 2)
+            self.playerRight.drawNextTetroms(17, 2)
+
+            self.playerLeft.draw()
+            self.playerRight.draw()
+        elif self.__status == TetrisLogicStatus.ENDSCREEN:
+            # Serial.println("ENDSCREEN")
+            self.__drawBorders()
+            self.playerLeft.draw()
+            self.playerRight.draw()
+        elif self.__status == TetrisLogicStatus.ENDGAME:
+            # TODO C++ Source lines were commented out
+            # Serial.println("ENDGAME");
+            # self.resetGame();
+            pass
         pass
 
     def startButtonPressed(self):
