@@ -91,6 +91,11 @@ class TetrisPlayer:
         pass
 
     def reset(self):
+        self.init()
+
+        for x in range(10):
+            for y in range(y):
+                self.__changeMap(x, y, 0)
         pass
 
     def getStatus(self) -> TetrisPlayerStatus:
