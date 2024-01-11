@@ -13,14 +13,14 @@ import TetrisLogic
 
 
 class TetrisGame(Game):
-    def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+    def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "TTRS")
 
         # TODO C++: TetrisDemo* tetrisDemo;
-        self.__tetrisDemo: TetrisDemo
+        self.__tetrisDemo: TetrisDemo.TetrisDemo
         # TODO C++: TetrisLogic* tetrisLogic;
-        self.__tetrisLogic: TetrisLogic
+        self.__tetrisLogic: TetrisLogic.TetrisLogic
         # TODO C++: TetrisPlayer* playerLeft;
         self.__playerLeft: TetrisLogic.TetrisPlayer
         # TODO C++: TetrisPlayer* playerRight;
@@ -56,11 +56,16 @@ class TetrisGame(Game):
     def prepareDemo(self):
         # TODO pyserial
         # Serial.println("Tetris Game prepare Demo!")
-        self.__tetrisDemo = TetrisDemo()
+        self.__tetrisDemo = TetrisDemo.TetrisDemo()
         self.__lastTime = self.millis()
         pass
 
     def playDemo(self):
+        timeNow: int = self.millis()
+        loopTime: int = timeNow - self.__lastTime
+        self.__lastTime = timeNow
+
+        self.__tetrisDemo.update(loopTime)
         pass
 
     def prepareGame(self):
