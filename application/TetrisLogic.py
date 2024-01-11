@@ -4,6 +4,7 @@ from enum import Enum
 import TetrisPlayer
 
 import Display
+import NumericDisplay
 
 class TetrisLogicStatus(Enum):
     UPDATING = 0
@@ -83,13 +84,25 @@ class TetrisLogic:
         pass
 
     def isGameEnd(self) -> bool:
-        pass
+        if self.__status == TetrisLogicStatus.ENDGAME:
+            return True
+        
+        return False
 
     def isEndScreen(self) -> bool:
-        pass
+        if self.__status == TetrisLogicStatus.ENDSCREEN:
+            return True
+        
+        return False
 
     def initializeGame(self):
+        NumericDisplay.NumericDisplay.test()
+        self.playerLeft = TetrisPlayer.TetrisPlayer(0, 0)
+        self.playerRight = TetrisPlayer.TetrisPlayer(22, 0)
+        self.__status = TetrisLogicStatus.UPDATING
         pass
 
     def resetGame(self):
+        self.playerLeft.reset()
+        self.playerRight.reset()
         pass
