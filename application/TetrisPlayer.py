@@ -196,6 +196,14 @@ class TetrisPlayer:
         pass
 
     def draw(self):
+        color: int = self.__mapColor
+        for x in range(10):
+            for y in range(16):
+                if self.__map[y][x] != 0:
+                    Display.Display.drawPixel(x + self.__mapOffsetX, y + self.__mapOffsetY, color)
+        
+        tetrom: TetrisTetrom.TetrisTetrom = self.getCurrentTetrom()
+        tetrom.draw()
         pass
 
     def drawNextTetroms(self, offsetX: int, offsetY: int):
