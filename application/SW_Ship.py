@@ -71,7 +71,62 @@ class Ship(Sprite):
      * Diese Methode prüft auf eingetretene Kollision mit Projektilen.
      * @param projectile
     """
-    def checkHitWithProjectile(projectileManagement: SW_ProjectileManagement.ProjectileManagement):
+    def checkHitWithProjectile(self, projectileManagement: SW_ProjectileManagement.ProjectileManagement):
+        for i in range(SW_Constants.MAXPROJECTILE * 2):
+            # TODO C++ Source used full lookup in every instance
+            # Current Projectile
+            cp = projectileManagement.getProjectiles(i)
+
+            if cp.getValid():
+                if cp.getDirection():
+                    # TODO pyserial
+                    # Serial.println("Ship Right")
+                    # Serial.println(self.getYPos())
+                    # Serial.println(self.getXPos())
+                    # Serial.println(projectileManagement.getProjectiles(i).getXCoordinate())
+                    if (
+                        # Erste Zeile
+                        ((self.getYPos() == cp.getYCoordinate()) and
+                        ((self.getXPos() == cp.getXCoordinate()) or
+                        (self.getXPos() + 1 == cp.getXCoordinate()))) or
+                        # Zweite Zeile
+                        ((self.getYPos() + 1 == cp.getYCoordinate()) and
+                        (self.getXPos() == cp.getXCoordinate())) or
+                        # Dritte Zeile
+                        ((self.getYPos() + 2 == cp.getYCoordinate()) and
+                        ((self.getXPos() == cp.getXCoordinate()) or
+                        (self.getXPos() + 1 == cp.getXCoordinate())))):
+                        # TODO pyserial
+                        # Serial.println(self._shipLives)
+                        if self.getShipLives() > 0:
+                            self._shipLives -= 1
+                        # Serial.println(self._shipLives)
+                        # TODO Remove reference to current projectile
+                        del cp
+                        projectileManagement.deleteProjectile(i)
+                else:
+                    # TODO pyserial
+                    # Serial.println("Ship Right")
+                    # Serial.println(self.getYPos())
+                    # Serial.println(self.getXPos())
+                    # Serial.println(projectileManagement.getProjectiles(i).getXCoordinate())
+                    if (
+                        # Erste Zeile
+                        ((self.getYPos() == cp.getYCoordinate()) and
+                        ((self.getXPos() + 1 == cp.getXCoordinate()) or
+                        (self.getXPos() + 2 == cp.getXCoordinate()))) or
+                        # Zweite Zeile
+                        ((self.getYPos() + 1 == cp.getYCoordinate()) and
+                        (self.getXPos() == cp.getXCoordinate())) or
+                        # Dritte Zeile
+                        ((self.getYPos() + 2 == cp.getYCoordinate()) and
+                        ((self.getXPos() + 1 == cp.getXCoordinate()) or
+                        (self.getXPos() + 2 == cp.getXCoordinate())))):
+                        if self.getShipLives() > 0:
+                            self._shipLives -= 1
+                        # TODO Remove reference to current projectile
+                        del cp
+                        projectileManagement.deleteProjectile(i)
         pass
 
     """
