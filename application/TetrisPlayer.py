@@ -50,6 +50,9 @@ class TetrisPlayer:
         pass
 
     def __assignNextTetroms(self):
+        del self.__currentTetrom
+        self.__currentTetrom = self.__nextTetrom
+        self.__nextTetrom = self.__generateTetrom()
         pass
 
     def __generateTetrom(self) -> TetrisTetrom.TetrisTetrom:
