@@ -16,6 +16,8 @@ import SW_Projectile
 
 class Ship(Sprite):
     def __init__(self):
+        # TODO Super constructor call
+        super().__init__(0, 0, 4, 3)
         # Attribute
         self._shipLives: int = 3
         self._orientation: int
@@ -33,13 +35,21 @@ class Ship(Sprite):
         self._yPos: int
 
         # TODO C++: uint8_t shipBorderArray[4];
-        self._shipBorderArray: int = [] * 4
+        self._shipBorderArray: int = []
+
+        # TODO pyserial
+        # Serial.println("Constructor called")
+        self.activate()
 
     """
      * Die Methode erzeugt ein spezifisches Projektil​ (siehe Modul ProjectileManagement - getProjectiles)​.
      * @param projectile
     """
     def _shot(self, projectileManagement: SW_ProjectileManagement.ProjectileManagement):
+        if self._orientation == 0:
+            projectileManagement.shoot(self.getXPos() + 3, self.getYPos() + 1, False)
+        else:
+            projectileManagement.shoot(self.getXPos() - 1, self.getYPos() + 1, True)
         pass
 
     """
