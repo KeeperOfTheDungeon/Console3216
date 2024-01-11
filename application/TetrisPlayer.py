@@ -134,6 +134,15 @@ class TetrisPlayer:
         return self.__map[y][x] == 0
 
     def __placeOnMap(self, tetrom: TetrisTetrom.TetrisTetrom):
+        posX: int = tetrom.getX()
+        posY: int = tetrom.getY()
+        # Serial.println("Place on map")
+        # Serial.println(posY)
+        for x in range(4):
+            for y in range(4):
+                if tetrom.getCollision(x, y):
+                    self.__changeMap(x + posX, y + posY, 1)
+                    # Serial.println("Change map")
         pass
 
     def __changeMap(self, x: int, y: int, value: int):
