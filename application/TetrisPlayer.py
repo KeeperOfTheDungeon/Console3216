@@ -1,4 +1,5 @@
 from enum import Enum
+import random
 
 # #include "Arduino.h"
 # #include "game.h"
@@ -50,7 +51,14 @@ class TetrisPlayer:
         pass
 
     def __generateTetrom(self) -> TetrisTetrom.TetrisTetrom:
-        pass
+        tetrom = TetrisTetrom.TetrisTetrom(self.__mapOffsetX, self.__mapOffsetY)
+        tetrom.setType(random.randrange(0, 7)) # Random type
+        tetrom.setPosition(5, -5) # Top center?
+        rColor: int = Display.Display.getColor(random.randrange(0, 3), random.randrange(0, 3), random.randrange(0, 3))
+        # TODO C++ Source overrides previous line
+        rColor = Display.Display.getColor(2, 2, 3)
+        tetrom.setColor(rColor)
+        return tetrom
 
     def __logicalUpdate(self, delta: int):
         pass
