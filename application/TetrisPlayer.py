@@ -124,7 +124,7 @@ class TetrisPlayer:
         pass
 
     def getCurrentTetrom(self) -> TetrisTetrom.TetrisTetrom:
-        pass
+        return self.__currentTetrom
 
     def getNextTetrom(self) -> TetrisTetrom.TetrisTetrom:
         pass
