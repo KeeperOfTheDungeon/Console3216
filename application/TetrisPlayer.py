@@ -162,6 +162,9 @@ class TetrisPlayer:
         pass
 
     def __moveIfPossible(self, tetrom: TetrisTetrom.TetrisTetrom, xOffset: int, yOffset: int):
+        if self.__canMoveTetrom(tetrom, xOffset, yOffset):
+            tetrom.moveRelative(xOffset, yOffset)
+            # Serial.println("MOVING TETROM!!")
         pass
 
     def __rotateIfPossible(self, tetrom: TetrisTetrom.TetrisTetrom, clockwise: bool):
