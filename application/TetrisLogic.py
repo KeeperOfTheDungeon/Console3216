@@ -71,6 +71,15 @@ class TetrisLogic:
         pass
 
     def startButtonPressed(self):
+        # TODO C++ Source was Switch/case
+        if self.__status == TetrisLogicStatus.UPDATING:
+            # Serial.println("Button to EndScreen")
+            self.__status = TetrisLogicStatus.ENDSCREEN
+        elif self.__status == TetrisLogicStatus.ENDSCREEN:
+            # Serial.println("Button to EndGame")
+            self.__status = TetrisLogicStatus.ENDGAME
+        elif self.__status == TetrisLogicStatus.ENDGAME:
+            pass
         pass
 
     def isGameEnd(self) -> bool:
