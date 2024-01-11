@@ -66,6 +66,8 @@ class TetrisLogic:
             # Serial.println("ENDGAME");
             # self.resetGame();
             pass
+
+        Display.Display.refresh()
         pass
 
     def startButtonPressed(self):
