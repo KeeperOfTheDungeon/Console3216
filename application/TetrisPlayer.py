@@ -8,6 +8,8 @@ import Game
 import TetrisTetrom
 
 import Display
+import NumericDisplay
+
 
 class TetrisPlayerStatus(Enum):
     PLAYING = 0
@@ -176,9 +178,13 @@ class TetrisPlayer:
         pass
 
     def returnPlayerPoints(self) -> int:
-        pass
+        return self.playerpoints
 
     def displayPlayerPoints(self, b: bool):
+        if b:
+            NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_LEFT, self.playerpoints)
+        else:
+            NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_RIGHT, self.playerpoints)
         pass
 
     def init(self):
@@ -237,9 +243,12 @@ class TetrisPlayer:
         pass
 
     def softDropOn(self):
+        # From C++ Source: TODO: reset level
+        self.__updateDelay = self.__softDropDelay
         pass
 
     def softDropOff(self):
+        self.__updateDelay = self.__normalDelay
         pass
 
     def inputRotateClockwise(self):
@@ -259,7 +268,15 @@ class TetrisPlayer:
         pass
 
     def checkLine(self, y: int) -> bool:
-        pass
+        for x in range(10):
+            if self.__map[y][x] == 0:
+                return False
+        return True
 
     def removeLine(self, y: int):
+        for x in range(10):
+            for yLoc in range(y, yLoc, -1):
+                self.__changeMap(x, yLoc, self.__map[yLoc - 1][x])
+        for x in range(10):
+            self.__changeMap(x, 0, 0)
         pass
