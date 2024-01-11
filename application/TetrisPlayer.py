@@ -108,7 +108,14 @@ class TetrisPlayer:
         pass
 
     def __hasCollisions(self, tetrom: TetrisTetrom.TetrisTetrom) -> bool:
-        pass
+        for x in range(4):
+            for y in range(4):
+                canCollide: bool = tetrom.getCollision(x, y)
+                if canCollide:
+                    if not self.__mapEmpty(tetrom.getX() + x, tetrom.getY() + y):
+                        return True
+        
+        return True
 
     def __mapEmpty(self, x: int, y: int) -> bool:
         # xxxooooxxx
