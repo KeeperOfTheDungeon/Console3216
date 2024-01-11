@@ -3,6 +3,8 @@ from enum import Enum
 # #include "inc/TetrisPlayer.h"
 import TetrisPlayer
 
+import Display
+
 class TetrisLogicStatus(Enum):
     UPDATING = 0
     ENDSCREEN = 1
@@ -29,6 +31,9 @@ class TetrisLogic:
         pass
 
     def __drawBorders(self):
+        for y in range(16):
+            Display.Display.drawPixel(10, y, Display.Display.getColor(2, 0, 0))
+            Display.Display.drawPixel(21, y, Display.Display.getColor(2, 0, 0))
         pass
 
     def update(self, delta: int):
