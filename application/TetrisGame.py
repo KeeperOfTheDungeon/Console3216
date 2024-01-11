@@ -69,6 +69,14 @@ class TetrisGame(Game):
         pass
 
     def prepareGame(self):
+        del self.__tetrisDemo
+
+        # TODO pyserial
+        # Serial.println("Tetris Game prepare Game!")
+        self.__tetrisLogic = TetrisLogic.TetrisLogic()
+        self.__lastTime = self.millis()
+        self.__playerLeft = self.__tetrisLogic.playerLeft
+        self.__playerRight = self.__tetrisLogic.playerRight
         pass
 
     def playGame(self):
