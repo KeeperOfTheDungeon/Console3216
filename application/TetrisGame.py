@@ -11,6 +11,8 @@ import TetrisDemo
 # #include "inc/TetrisLogic.h"
 import TetrisLogic
 
+import StartButton
+
 
 class TetrisGame(Game):
     def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
@@ -80,6 +82,102 @@ class TetrisGame(Game):
         pass
 
     def playGame(self):
+        timeNow: int = self.millis()
+        loopTime: int = timeNow - self.__lastTime
+        self.__lastTime = timeNow
+
+        if self.__tetrisLogic.isGameEnd():
+            self._state = Game.GAME_STATE_END
+            # TODO pyserial
+            # Serial.println("End Game")
+        
+        if StartButton.StartButton.getStatus() == Game.START_BUTTON_PRESSED:
+            self.__tetrisLogic.startButtonPressed()
+        
+        if not self.__tetrisLogic.isEndScreen():
+            # Left Joystick Left + Repeat
+            if (self.__statusLeftJoystickOld.left and self._joystickLeft.isLeft()):
+                self.__joystickLeftRepeatLeft += loopTime
+                if self.__joystickLeftRepeatLeft > self.__repeatLeftRightTime:
+                    self.__joystickLeftRepeatLeft -= self.__repeatLeftRightTime
+                    self.__playerLeft.inputMoveLeft()
+            else:
+                self.__joystickLeftRepeatLeft = self.__repeatLeftRightTime
+            
+            # Left Joystick Right + Repeat
+            if (self.__statusLeftJoystickOld.right and self._joystickLeft.isRight()):
+                self.__joystickLeftRepeatRight += loopTime
+                if self.__joystickLeftRepeatRight > self.__repeatLeftRightTime:
+                    self.__joystickLeftRepeatRight -= self.__repeatLeftRightTime
+                    self.__playerLeft.inputMoveRight()
+            else:
+                self.__joystickLeftRepeatRight = self.__repeatLeftRightTime
+            
+            # Left Joystick Up
+            if ((not self.__statusLeftJoystickOld.up) and self._joystickLeft.isUp()):
+                # TODO Condition body empty in C++ Source
+                pass
+            
+            # Left Joystick Down
+            if ((not self.__statusLeftJoystickOld.down) and self._joystickLeft.isDown()):
+                self.__playerLeft.softDropOn()
+            
+            # Left Joystick Not Down
+            if (self.__statusLeftJoystickOld.down and (not self._joystickLeft.isDown())):
+                self.__playerLeft.softDropOff()
+            
+            # Left Top Button Down
+            if (self.__statusLeftJoystickOld.buttonTop and (not self._joystickLeft.isButtonTop())):
+                self.__playerLeft.inputRotateClockwise()
+            
+            # Left Body Button Down
+            if (self.__statusLeftJoystickOld.buttonBody and (not self._joystickLeft.isButtonBody())):
+                # TODO Condition body empty in C++ Source
+                pass
+
+            # Right Joystick Left + Repeat
+            if (self.__statusRightJoystickOld.left and self._joystickRight.isLeft()):
+                self.__joystickRightRepeatLeft += loopTime
+                if self.__joystickRightRepeatLeft > self.__repeatLeftRightTime:
+                    self.__joystickRightRepeatLeft -= self.__repeatLeftRightTime
+                    self.__playerRight.inputMoveLeft()
+            else:
+                self.__joystickRightRepeatLeft = self.__repeatLeftRightTime
+            
+            # Right Joystick Right + Repeat
+            if (self.__statusRightJoystickOld.right and self._joystickRight.isRight()):
+                self.__joystickRightRepeatRight += loopTime
+                if self.__joystickRightRepeatRight > self.__repeatLeftRightTime:
+                    self.__joystickRightRepeatRight -= self.__repeatLeftRightTime
+                    self.__playerRight.inputMoveRight()
+            else:
+                self.__joystickRightRepeatRight = self.__repeatLeftRightTime
+            
+            # Right Joystick Up
+            if ((not self.__statusRightJoystickOld.up) and self._joystickRight.isUp()):
+                # TODO Condition body empty in C++ Source
+                pass
+            
+            # Right Joystick Down
+            if ((not self.__statusRightJoystickOld.down) and self._joystickRight.isDown()):
+                self.__playerRight.softDropOn()
+            
+            # Right Joystick Not Down
+            if (self.__statusRightJoystickOld.down and (not self._joystickRight.isDown())):
+                self.__playerRight.softDropOff()
+            
+            # Right Top Button Down
+            if (self.__statusRightJoystickOld.buttonTop and (not self._joystickRight.isButtonTop())):
+                self.__playerRight.inputRotateClockwise()
+            
+            # Right Body Button Down
+            if (self.__statusRightJoystickOld.buttonBody and (not self._joystickRight.isButtonBody())):
+                # TODO Condition body empty in C++ Source
+                pass
+            
+            self.updateStatus()
+        
+        self.__tetrisLogic.update(loopTime)
         pass
 
     def updateStatus(self):
