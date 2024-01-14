@@ -4,7 +4,7 @@ import Sprite
 
 import Display
 
-class Projectile(Sprite):
+class Projectile(Sprite.Sprite):
     def __init__(self):
         super().__init__(0, 0, 1, 1)
         self._vectorY: int
@@ -12,7 +12,7 @@ class Projectile(Sprite):
         self._movementPrescaler: int
         self._active: bool
 
-        self._bitmap[0] = Display.getColor(4, 7, 0)
+        self._bitmap[0] = Display.Display.getColor(4, 7, 0)
 
     def move(self):
         if self._yPos > 0 and self._yPos < 16:

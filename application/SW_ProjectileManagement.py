@@ -10,17 +10,17 @@ class ProjectileManagement:
     def __init__(self):
         # Array of projectiles
         # TODO C++: SW_Projectile projectile[2*MAXPROJECTILE];
-        self.__projectile: SW_Projectile.SW_Projectile = []
+        self.__projectile = [None for _ in range(SW_Constants.MAXPROJECTILE * 2)]
 
         self.__tickMoveProjectiles: int = 0
 
         for i in range(2 * SW_Constants.MAXPROJECTILE):
-            self.__projectile[i] = SW_Projectile()
+            self.__projectile[i] = SW_Projectile.SW_Projectile()
 
     """
      * Diese Methode liefert eine Liste mit allen auf dem Spielfeld aktiven Projektilen.
     """
-    def getProjectiles(self, index: int) -> SW_Projectile:
+    def getProjectiles(self, index: int) -> SW_Projectile.SW_Projectile:
         return self.__projectile[index]
 
     """

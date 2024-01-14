@@ -31,7 +31,7 @@ aa: int
 
 
 class Pong(Game):
-    def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+    def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "PONG")
 
@@ -140,7 +140,7 @@ class Pong(Game):
         pass
 
     def process(self):
-        Game.Game.process()
+        super().process()
 
         if self._state == Game.GAME_STATE_PLAY:
             if (self._player1Points == 10) or (self._player2Points == 10):

@@ -9,16 +9,16 @@ import Display
 # #include <sine.h>
 import Sine
 # #include "sw_ship.h"
-from SW_Ship import Ship
+import SW_Ship
 # #include "sw_projectileManagement.h"
-from SW_ProjectileManagement import ProjectileManagement
+import SW_ProjectileManagement
 # #include "SpaceSounds.h"
 import SpaceSounds
 
 import NumericDisplay
 
-class Space_Wars(Game):
-    def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+class Space_Wars(Game.Game):
+    def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "SWAR")
         # TODO
@@ -29,12 +29,12 @@ class Space_Wars(Game):
 
         self._gameFinish: bool = False
 
-        self._sounds: SpaceSounds
+        self._sounds: SpaceSounds.SpaceSounds
 
-        self._projectileManagement: ProjectileManagement
+        self._projectileManagement: SW_ProjectileManagement.ProjectileManagement
 
-        self._shipLeft: Ship
-        self._shipRight: Ship
+        self._shipLeft: SW_Ship.Ship
+        self._shipRight: SW_Ship.Ship
 
         self._restart()
 

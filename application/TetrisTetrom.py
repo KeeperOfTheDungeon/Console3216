@@ -5,7 +5,7 @@ import Game
 import Display
 
 # TODO C++: static const uint8_t tetromRotations[7][4][4][4] = {...}
-tetromRotations: int = [
+tetromRotations = [
     # J 0
     [[[0, 1, 0, 0],
       [0, 1, 0, 0],

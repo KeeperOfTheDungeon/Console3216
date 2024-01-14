@@ -29,21 +29,17 @@ ticks: int
 
 clearDemoLines: bool = False
 
-class Curve(Game):
+class Curve(Game.Game):
     # TODO C++ Konstruktor: Curve(Joystick & leftJoystick, Joystick & rightJoystick);
     def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+        # TODO C++ Source (Empty brackets {}):
+        # Curve::Curve(Joystick &leftJoystick, Joystick &rightJoystick) : Game(leftJoystick, rightJoystick, (char *) "CURV") {}
+        super().__init__(leftJoystick, rightJoystick, "CURV")
+        
         # TODO C++: GameStatus* gameStatus;
         self.__gameStatus: CurveFeverLogic.GameStatus
         self.__logic: CurveFeverLogic.Logic
-        self.__view: CurveFeverView
-
-        self.__leftJoystick: Joystick = leftJoystick
-        self.__rightJoystick: Joystick = rightJoystick
-
-        # TODO C++ Source (Empty brackets {}):
-        # Curve::Curve(Joystick &leftJoystick, Joystick &rightJoystick) : Game(leftJoystick, rightJoystick, (char *) "CURV") {}
-        # Old code: Game(leftJoystick, rightJoystick, "CURV")
-        super().__init__(self.__leftJoystick, self.__rightJoystick, "CURV")
+        self.__view: CurveFeverView.CurveFeverView
 
     def prepareDemo(self):
         self.__view.clearScreen()
@@ -62,7 +58,7 @@ class Curve(Game):
 
         # TODO C++ Source:
         # CellUpdate posUpdate[FIELD_WIDTH * FIELD_HEIGHT]
-        posUpdate: CurveFeverLogic.CellUpdate = [CurveFeverLogic.FIELD_WIDTH] * CurveFeverLogic.FIELD_HEIGHT
+        posUpdate = [None for _ in range(CurveFeverLogic.FIELD_WIDTH * CurveFeverLogic.FIELD_HEIGHT)]
 
         updateCount: int = 0
         i: int = 0
@@ -229,29 +225,29 @@ class Curve(Game):
         self.__view.clearScreen()
         # TODO C++ Source:
         # this->timeStart();
-        self.timeStart()
+        self._timeStart()
         ticks = 0
 
         # TODO C++ Source:
         # MIDI_Control_Commands::setupMidi();
         # MIDI_Control_Commands::playTrack(TRACK_ID,100);
-        MIDI_Control_Commands.setupMidi()
-        MIDI_Control_Commands.playTrack(TRACK_ID, 100)
+        MIDI_Control_Commands.MIDI_Control_Commands.setupMidi()
+        MIDI_Control_Commands.MIDI_Control_Commands.playTrack(TRACK_ID, 100)
 
         # TODO C++ Source:
         # gameStatus = logic.initGame(joystickLeft, joystickRight);
-        self.__gameStatus = self.__logic.initGame(self.__leftJoystick, self.__rightJoystick)
+        self.__gameStatus = self.__logic.initGame(self._leftJoystick, self._rightJoystick)
 
         pass
 
     def playGame(self):
         ticks += 1
-        gameStatus = self.__logic.move()
+        self.__gameStatus = self.__logic.move()
 
         self.__view.setBoost(CurveFeverLogic.PLAYER_1, self.__gameStatus.player1Boost)
         self.__view.setBoost(CurveFeverLogic.PLAYER_2, self.__gameStatus.player2Boost)
-        # TODO time not defined
-        self.__view.setTime(int(time / 1000))
+        
+        self.__view.setTime(int(self._time / 1000))
 
         if self.__gameStatus.clearScreen:
             self.__view.clearScreen()
@@ -259,25 +255,25 @@ class Curve(Game):
         self.__view.updatePixels(self.__gameStatus.cellUpdates, self.__gameStatus.updateCount)
 
         if self.__gameStatus.gameOver:
-            self.state = CurveFeverLogic.GAME_STATE_END
+            self._state = Game.GAME_STATE_END
         
         self.__view.playSound(self.__gameStatus.soundStatus)
         pass
 
     def gameOver(self):
-        Game.gameOver()
-        MIDI_Control_Commands.stopTrack(TRACK_ID)
+        super()._gameOver()
+        MIDI_Control_Commands.MIDI_Control_Commands.stopTrack(TRACK_ID)
         self.__view.printWinner(self.__logic.getWinner())
         pass
 
     def process(self):
-        Game.process()
+        super().process()
 
         # TODO C++ Source:
         # if (this->state == GAME_STATE_PLAY) {
             # playGame();
         # }
 
-        if self.state == CurveFeverLogic.GAME_STATE_PLAY:
+        if self._state == Game.GAME_STATE_PLAY:
             self.playGame()
         pass

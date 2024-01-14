@@ -13,14 +13,14 @@ import NumericDisplay
 import Sound
 
 # TODO C++: #define EMPTY_COLOR Display::getColor(0, 0, 0);
-EMPTY_COLOR: int = Display.getColor(0, 0, 0) # Display::getColor(0, 0, 0);
-PLAYER_1_COLOR_1: int = Display.getColor(7, 0, 0) # Display::getColor(7, 0, 0);
-PLAYER_1_COLOR_2: int = Display.getColor(4, 0, 0) # Display::getColor(4, 0, 0);
-PLAYER_2_COLOR_1: int = Display.getColor(0, 7, 0) # Display::getColor(0, 7, 0);
-PLAYER_2_COLOR_2: int = Display.getColor(0, 4, 0) # Display::getColor(0, 4, 0);
-ITEM_1_COLOR: int = Display.getColor(0, 0, 7) # Display::getColor(0, 0, 7);
-ITEM_2_COLOR: int = Display.getColor(0, 2, 2) # Display::getColor(0, 2, 2);
-ITEM_3_COLOR: int = Display.getColor(3, 3, 3) # Display::getColor(3, 3, 3);
+EMPTY_COLOR: int = Display.Display.getColor(0, 0, 0) # Display::getColor(0, 0, 0);
+PLAYER_1_COLOR_1: int = Display.Display.getColor(7, 0, 0) # Display::getColor(7, 0, 0);
+PLAYER_1_COLOR_2: int = Display.Display.getColor(4, 0, 0) # Display::getColor(4, 0, 0);
+PLAYER_2_COLOR_1: int = Display.Display.getColor(0, 7, 0) # Display::getColor(0, 7, 0);
+PLAYER_2_COLOR_2: int = Display.Display.getColor(0, 4, 0) # Display::getColor(0, 4, 0);
+ITEM_1_COLOR: int = Display.Display.getColor(0, 0, 7) # Display::getColor(0, 0, 7);
+ITEM_2_COLOR: int = Display.Display.getColor(0, 2, 2) # Display::getColor(0, 2, 2);
+ITEM_3_COLOR: int = Display.Display.getColor(3, 3, 3) # Display::getColor(3, 3, 3);
 
 
 class CurveFeverView:
@@ -47,26 +47,26 @@ class CurveFeverView:
 
     # TODO C++: void printGameName(char *name);
     def printGameName(self, name: int):
-        nameColor: int = Display.getColor(2, 0, 2)
-        Display.drawTest(name, 4, 4, nameColor, 1)
-        Display.refresh()
-        Display.drawText(name, 4, 4, nameColor, 1)
+        nameColor: int = Display.Display.getColor(2, 0, 2)
+        Display.Display.drawText(name, 4, 4, nameColor, 1)
+        Display.Display.refresh()
+        Display.Display.drawText(name, 4, 4, nameColor, 1)
         pass
 
     # TODO C++: void updatePixels(CellUpdate* cells, uint8_t cellCount);
     def updatePixels(self, cells: CurveFeverLogic.CellUpdate, cellCount: int):
         for j in range(2):
             for i in range(cellCount):
-                Display.drawPixel(cells[i].x, cells[i].y, self.__getColorOfState(cells[i].state))
+                Display.Display.drawPixel(cells[i].x, cells[i].y, self.__getColorOfState(cells[i].state))
 
             if j == 0:
-                Display.refresh()
+                Display.Display.refresh()
         pass
 
     def clearScreen(self):
-        Display.clearDisplay()
-        Display.refresh()
-        Display.clearDisplay()
+        Display.Display.clearDisplay()
+        Display.Display.refresh()
+        Display.Display.clearDisplay()
         pass
 
     def setBoost(self, player: int, boost: int):
@@ -74,11 +74,11 @@ class CurveFeverView:
         if player == CurveFeverLogic.PLAYER_2:
             display = NumericDisplay.DISPLAY_RIGHT
         
-        NumericDisplay.displayValue(display, boost)
+        NumericDisplay.NumericDisplay.displayValue(display, boost)
         pass
 
     def setTime(self, time: int):
-        NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, time)
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, time)
         pass
 
     def printWinner(self, winner: int):
@@ -93,19 +93,19 @@ class CurveFeverView:
             value = 60 * 22 + 22
             output = "P2 Wins!" # C++ Source: output = "P1 Wins!";
         
-        NumericDisplay.displayTime(NumericDisplay.DISPLAY_LEFT, value)
-        NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, value)
-        NumericDisplay.displayTime(NumericDisplay.DISPLAY_RIGHT, value)
-        Display.drawText(output, 1, 1, CurveFeverLogic.PLAYER_1, 1)
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_LEFT, value)
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, value)
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_RIGHT, value)
+        Display.Display.drawText(output, 1, 1, CurveFeverLogic.PLAYER_1, 1)
         pass
 
     def playSound(self, soundId: int):
         for i in range(0, 256, 5):
             if soundId == Sound.SOUND_ITEM_COLLECT:
-                Sound.playSound(i, 9, 100)
+                Sound.Sound.playSound(i, 9, 100)
             elif soundId == Sound.SOUND_ITEM_ACTIVATE:
-                Sound.playSound(255 - i, 9, 100)
+                Sound.Sound.playSound(255 - i, 9, 100)
             elif soundId == Sound.SOUND_GAMEOVER:
-                Sound.playSound(60, 9, 100)
+                Sound.Sound.playSound(60, 9, 100)
 
         pass

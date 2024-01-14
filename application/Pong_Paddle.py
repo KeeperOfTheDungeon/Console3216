@@ -17,7 +17,7 @@ PADDLE_BEND: int = 1
 PADDLE_HOLD: int = 2
 
 
-class Paddle(Sprite):
+class Paddle(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 2, 5)

@@ -10,13 +10,13 @@ PILOT_TRIGGER_UP = 1
 PILOT_TRIGGER_BODY = 2
 
 
-class Pilot(Sprite):
+class Pilot(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 1, 1)
 
         # TODO C++: Joystick *joystick;
-        self._joystick: Joystick
+        self._joystick: Joystick.Joystick
 
         self._movementCounter: int
         self._movementPrescaler: int
@@ -24,11 +24,11 @@ class Pilot(Sprite):
         self._moved: int
 
         # TODO Sprite Class
-        self._bitmap[0] = Display.getColor(7, 0, 0)
+        self._bitmap[0] = Display.Display.getColor(7, 0, 0)
         self.activate()
 
     # TODO C++: void init(Joystick & myJoystick);
-    def init(self, myJoystick: Joystick):
+    def init(self, myJoystick: Joystick.Joystick):
         self._joystick = myJoystick
         pass
 

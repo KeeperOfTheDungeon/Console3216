@@ -14,7 +14,7 @@ import Display
 import SW_Projectile
 
 
-class Ship(Sprite):
+class Ship(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 4, 3)
@@ -35,7 +35,7 @@ class Ship(Sprite):
         self._yPos: int
 
         # TODO C++: uint8_t shipBorderArray[4];
-        self._shipBorderArray: int = []
+        self._shipBorderArray = [0 for _ in range(4)]
 
         # TODO pyserial
         # Serial.println("Constructor called")
@@ -172,7 +172,7 @@ class Ship(Sprite):
 
      TODO Method was marked as TODO in C++ Source
     """
-    def moveShipAndShot(self, joystick: Joystick, projectileManagement: SW_ProjectileManagement.ProjectileManagement):
+    def moveShipAndShot(self, joystick: Joystick.Joystick, projectileManagement: SW_ProjectileManagement.ProjectileManagement):
         if (((self._orientation == 0) and joystick.isLeft() and (self.getXPos() > SW_Constants.SHIP_LEFT_LEFT_BORDER)) or
             ((self._orientation != 0) and joystick.isLeft() and (self.getXPos() > SW_Constants.SHIP_RIGHT_LEFT_BORDER))):
             if self._timerTickMove == 0:

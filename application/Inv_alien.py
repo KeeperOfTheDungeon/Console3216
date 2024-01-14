@@ -17,7 +17,7 @@ ALIEN_POINTS_FIGHTER = 10
 ALIEN_POINTS_BOMBER = 20
 
 
-class Alien(Sprite):
+class Alien(Sprite.Sprite):
     def __init__(self):
         super().__init__(0, 0, 1, 1)
         
@@ -26,7 +26,7 @@ class Alien(Sprite):
         self._movementPrescaler: int
         
         # bitmap is part of Sprite.py
-        self._bitmap[0] = Display.getColor(7, 3, 0)
+        self._bitmap[0] = Display.Display.getColor(7, 3, 0)
         self.activate()
 
     def setType(self, newType: int):

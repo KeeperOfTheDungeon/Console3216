@@ -10,7 +10,7 @@ PILOT_TRIGGER_UP = 1
 PILOT_TRIGGER_BODY = 2
 
 
-class Ufo(Sprite):
+class Ufo(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 1, 1)
@@ -18,7 +18,7 @@ class Ufo(Sprite):
         self._movementPrescaler: int
 
         # TODO GetColor
-        self._bitmap[0] = Display.getColor(7, 7, 7)
+        self._bitmap[0] = Display.Display.getColor(7, 7, 7)
         self.activate()
         self._yPos = 0
 

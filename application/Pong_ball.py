@@ -6,12 +6,12 @@ import Sprite
 
 import Display
 
-class Ball(Sprite):
+class Ball(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 1, 1)
 
-        self._bitmap[0] = Display.getColor(7, 0, 0)
+        self._bitmap[0] = Display.Display.getColor(7, 0, 0)
         self.activate()
 
         self._vectorX: int = -1

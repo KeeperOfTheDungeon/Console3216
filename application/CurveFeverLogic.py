@@ -62,11 +62,11 @@ class Logic:
 
     def __init__(self):
         # TODO C++: Joystick* joystick1;
-        self.__joystick1: Joystick
+        self.__joystick1: Joystick.Joystick
         # TODO C++: Joystick* joystick2;
-        self.__joystick2: Joystick
+        self.__joystick2: Joystick.Joystick
         # TODO C++: CellUpdate cellUpdates[MAX_CHANGE_COUNT];
-        self.__cellUpdates: CellUpdate = [] * MAX_CHANGE_COUNT
+        self.__cellUpdates = [CellUpdate for _ in range(MAX_CHANGE_COUNT)]
 
         self.__status: GameStatus
         self.__player1: CurveFeverPlayer.Player
@@ -77,7 +77,7 @@ class Logic:
         self.__gameTicks: int
 
         # TODO C++: uint8_t field[FIELD_WIDTH][FIELD_HEIGHT];
-        self.__field: int = [[] * FIELD_WIDTH] * FIELD_HEIGHT
+        self.__field = [[0 for _ in range(FIELD_HEIGHT)] for _ in range(FIELD_WIDTH)]
 
     def __generateItem(self) -> int:
         pass
@@ -116,7 +116,7 @@ class Logic:
     def __setDirectionForPlayer(self, player: CurveFeverPlayer.Player):
         # TODO C++ Source:
         # Joystick* joystick = this->joystick1;
-        joystick: Joystick = self.__joystick1
+        joystick: Joystick.Joystick = self.__joystick1
         if player.getName() == PLAYER_2:
             joystick = self.__joystick2
         
@@ -224,7 +224,7 @@ class Logic:
                 self.__setCellState(self.__itemPosition.x, self.__itemPosition.y, cellState, True)
         pass
 
-    def __updatePlayer(self, player: CurveFeverPlayer.Player, joystick: Joystick) -> bool:
+    def __updatePlayer(self, player: CurveFeverPlayer.Player, joystick: Joystick.Joystick) -> bool:
         playerUpdated: bool = False
 
         if self.__updateOccursThisTick(player.getSpeed()):
@@ -285,7 +285,7 @@ class Logic:
         return (dx + dy == 0) or ((dx + dy == 1) and oppositeDirection and ((dy == 1) ^ player1Horizontal))
 
     # TODO C++ return Pointer
-    def initGame(self, p1_joystick: Joystick, p2_joystick: Joystick) -> GameStatus:
+    def initGame(self, p1_joystick: Joystick.Joystick, p2_joystick: Joystick.Joystick) -> GameStatus:
         self.__joystick1 = p1_joystick
         self.__joystick2 = p2_joystick
         self.__gameTicks = 0
@@ -333,7 +333,7 @@ class Logic:
             self.__status.player2Boost = self.__player2.getBoost()
 
             # Has there been an update?
-            if (player1Updated or player2Updated) and not self.__status.gameOver:
+            if (player1Updated or player2Updated) and (not self.__status.gameOver):
                 self.__maybeAbsorbItem()
 
                 if not self.__status.clearScreen:

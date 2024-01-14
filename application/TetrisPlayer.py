@@ -34,7 +34,7 @@ class TetrisPlayer:
         self.__normalDelay: int = 200
 
         # TODO C++: uint8_t map[16][10] = {...};
-        self.__map: int = [[0 for _ in range(10)] for _ in range(16)]
+        self.__map = [[0 for _ in range(10)] for _ in range(16)]
 
         self.playerpoints: int
 

@@ -29,8 +29,8 @@ POINTS_UFO = 100
 UFO_APERANCE_PROPABILITY = 50
 
 
-class Invaders(Game):
-    def __init__(self, leftJoystick: Joystick, rightJoystick: Joystick):
+class Invaders(Game.Game):
+    def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "INV")
 
@@ -95,17 +95,17 @@ class Invaders(Game):
                 self._pilotProjectile.deActivate()
         self._squad.move()
 
-        NumericDisplay.displayValue(NumericDisplay.DISPLAY_LEFT, self._player1Points)
+        NumericDisplay.NumericDisplay.displayValue(NumericDisplay.DISPLAY_LEFT, self._player1Points)
         pass
 
     def draw(self):
-        textColor: int = Display.getColor(0, 2, 5)
+        textColor: int = Display.Display.getColor(0, 2, 5)
         
-        Display.clearDisplay()
-        Display.drawText(self._name, 4, 4, textColor, 1)
+        Display.Display.clearDisplay()
+        Display.Display.drawText(self._name, 4, 4, textColor, 1)
         self._drawField()
 
-        NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
+        NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
 
         self._pilot.draw()
         self._ufo.draw()
@@ -114,7 +114,7 @@ class Invaders(Game):
 
         self._squad.draw()
 
-        Display.refresh()
+        Display.Display.refresh()
         pass
 
     def prepareDemo(self):

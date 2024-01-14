@@ -5,7 +5,7 @@ import Sprite
 # TODO inv_guests.cpp does not exist, prototype from inc/inv_guests.h
 
 
-class Guests(Sprite):
+class Guests(Sprite.Sprite):
     def __init__(self):
         self._vectorY: int
 

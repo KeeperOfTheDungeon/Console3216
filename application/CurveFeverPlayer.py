@@ -1,6 +1,6 @@
 import random
 
-from CurveFeverPlayer import Player
+import CurveFeverPlayer
 
 RIGHT = 0
 UP = 1
@@ -25,8 +25,9 @@ ITEM_DURATION = 20
 
 
 # TODO C++: typedef uint8_t Item;
-class Item:
-    pass
+# class Item:
+#     pass
+Item = int
 
 
 # TODO C++: typedef struct {...} Position;
@@ -61,6 +62,8 @@ class Player:
     def __movePlayer(self) -> bool:
         validMove = True
         # TODO C++ Source was switch/case
+        # TODO Accessing class variables:
+        # self.width works, but type(self).width is preferred
         if self.__direction == RIGHT:
             self.__position.x += 1
             if self.__position.x >= type(self).width:
@@ -161,7 +164,7 @@ class Player:
     def isCreatingGap(self) -> bool:
         return self.__creatingGap
 
-    def isFasterThan(self, other: Player) -> bool:
+    def isFasterThan(self, other: CurveFeverPlayer.Player) -> bool:
         faster: bool = (self.__speed == FAST and other.__speed != FAST) or (self.__speed == REGULAR and other.__speed == SLOW)
         # TODO C++ definition has no return
         return faster

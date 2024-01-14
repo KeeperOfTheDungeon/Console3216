@@ -14,7 +14,7 @@ import TetrisLogic
 import StartButton
 
 
-class TetrisGame(Game):
+class TetrisGame(Game.Game):
     def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "TTRS")

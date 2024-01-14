@@ -47,7 +47,7 @@ currentCoinValue: int
 console: Console.Console
 
 # TODO C++: Display* display;
-display: Display
+display: Display.Display
 
 # TODO Arduino specific code, now handled by main()
 def setup():
@@ -58,6 +58,7 @@ def loop():
     pass
 
 # TODO No definition in C++ source
+# TODO Coindetection from firmware, not same folder
 def ca_coinDetected(coinType: CoinDetection.coin):
     pass
 
