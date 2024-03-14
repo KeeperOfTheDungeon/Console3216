@@ -4,9 +4,9 @@ from enum import Enum
 
 class CoinDetection:
     # to check if a coin signal appear. - merke den zustand der letzten flanke
-    coinToggle: bool
+    coinToggle: bool = False
     # to save the time how long the coin signal toggles
-    timer: int
+    timer: int = 0
 
     class coin(Enum):
         cent5 = 0
@@ -28,12 +28,12 @@ class CoinDetection:
         self._pulse3: int = 8
 
         # count the number of flanks. 2 flanks = 1 pulse
-        self._flankenCounter: int
+        self._flankenCounter: int = 0
 
         # TODO C++: volatile uint8_t pinLED;
-        self.pinLED: int
+        self.pinLED: int = 0
         # TODO C++: volatile uint8_t pinCoinAcceptor
-        self.pinCoinAcceptor: int
+        self.pinCoinAcceptor: int = 0
 
     def cd_returnCoin(self):
         pass
