@@ -17,24 +17,26 @@ import SpaceSounds
 
 import NumericDisplay
 
+from rgbmatrix import graphics
+
 class Space_Wars(Game.Game):
     def __init__(self, leftJoystick: Joystick.Joystick, rightJoystick: Joystick.Joystick):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "SWAR")
         # TODO
-        self._textColor: int = Display.getColor(0, 2, 5)
-        self._middleBorderColor: int = 0xFFFF
+        self._textColor: graphics.Color = Display.Display.getColorFrom333(0, 2, 5)
+        self._middleBorderColor: graphics.Color = Display.Display.getColorFrom565(0xFFFF)
 
         self._currentState: int = SW_Constants.STATE_DEMO
 
         self._gameFinish: bool = False
 
-        self._sounds: SpaceSounds.SpaceSounds
+        self._sounds: SpaceSounds.SpaceSounds = None
 
-        self._projectileManagement: SW_ProjectileManagement.ProjectileManagement
+        self._projectileManagement: SW_ProjectileManagement.ProjectileManagement = None
 
-        self._shipLeft: SW_Ship.Ship
-        self._shipRight: SW_Ship.Ship
+        self._shipLeft: SW_Ship.Ship = None
+        self._shipRight: SW_Ship.Ship = None
 
         self._restart()
 
@@ -44,11 +46,11 @@ class Space_Wars(Game.Game):
 
         # Comment from C++ source:
         # Here you have to initialize important variables for your ships
-        self._shipLeft.setShipColor(0xFFFF)
+        self._shipLeft.setShipColor(Display.Display.getColorFrom565(0xFFFF))
         self._shipLeft.setOrientation(SW_Constants.SHIP_LEFT)
         self._shipLeft.setBitMap()
 
-        self._shipRight.setShipColor(0xFFFF)
+        self._shipRight.setShipColor(Display.Display.getColorFrom565(0xFFFF))
         self._shipRight.setOrientation(SW_Constants.SHIP_RIGHT)
         self._shipRight.setBitMap()
 
