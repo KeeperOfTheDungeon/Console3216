@@ -135,7 +135,7 @@ class TetrisTetrom:
         self.__positionY: int = 0
         self.__rotationIndex: int = 0
         self.__tetromIndex: int = 0
-        self.__color: int = Display.Display.getColor(2, 0, 2)
+        self.__color: int = Display.Display.getColorFrom333(2, 0, 2)
         pass
 
     def getX(self) -> int:
