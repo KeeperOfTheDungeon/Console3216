@@ -13,14 +13,14 @@ import NumericDisplay
 import Sound
 
 # TODO C++: #define EMPTY_COLOR Display::getColor(0, 0, 0);
-EMPTY_COLOR: int = Display.Display.getColor(0, 0, 0) # Display::getColor(0, 0, 0);
-PLAYER_1_COLOR_1: int = Display.Display.getColor(7, 0, 0) # Display::getColor(7, 0, 0);
-PLAYER_1_COLOR_2: int = Display.Display.getColor(4, 0, 0) # Display::getColor(4, 0, 0);
-PLAYER_2_COLOR_1: int = Display.Display.getColor(0, 7, 0) # Display::getColor(0, 7, 0);
-PLAYER_2_COLOR_2: int = Display.Display.getColor(0, 4, 0) # Display::getColor(0, 4, 0);
-ITEM_1_COLOR: int = Display.Display.getColor(0, 0, 7) # Display::getColor(0, 0, 7);
-ITEM_2_COLOR: int = Display.Display.getColor(0, 2, 2) # Display::getColor(0, 2, 2);
-ITEM_3_COLOR: int = Display.Display.getColor(3, 3, 3) # Display::getColor(3, 3, 3);
+EMPTY_COLOR = Display.Display.getColorFrom333(0, 0, 0) # Display::getColor(0, 0, 0);
+PLAYER_1_COLOR_1 = Display.Display.getColorFrom333(7, 0, 0) # Display::getColor(7, 0, 0);
+PLAYER_1_COLOR_2 = Display.Display.getColorFrom333(4, 0, 0) # Display::getColor(4, 0, 0);
+PLAYER_2_COLOR_1 = Display.Display.getColorFrom333(0, 7, 0) # Display::getColor(0, 7, 0);
+PLAYER_2_COLOR_2 = Display.Display.getColorFrom333(0, 4, 0) # Display::getColor(0, 4, 0);
+ITEM_1_COLOR = Display.Display.getColorFrom333(0, 0, 7) # Display::getColor(0, 0, 7);
+ITEM_2_COLOR = Display.Display.getColorFrom333(0, 2, 2) # Display::getColor(0, 2, 2);
+ITEM_3_COLOR = Display.Display.getColorFrom333(3, 3, 3) # Display::getColor(3, 3, 3);
 
 
 class CurveFeverView:
@@ -47,7 +47,7 @@ class CurveFeverView:
 
     # TODO C++: void printGameName(char *name);
     def printGameName(self, name: int):
-        nameColor: int = Display.Display.getColor(2, 0, 2)
+        nameColor: int = Display.Display.getColorFrom333(2, 0, 2)
         Display.Display.drawText(name, 4, 4, nameColor, 1)
         Display.Display.refresh()
         Display.Display.drawText(name, 4, 4, nameColor, 1)
@@ -102,10 +102,9 @@ class CurveFeverView:
     def playSound(self, soundId: int):
         for i in range(0, 256, 5):
             if soundId == Sound.SOUND_ITEM_COLLECT:
-                Sound.Sound.playSound(i, 9, 100)
+                Sound.Sound.playSoundDura(i, 9, 100)
             elif soundId == Sound.SOUND_ITEM_ACTIVATE:
-                Sound.Sound.playSound(255 - i, 9, 100)
+                Sound.Sound.playSoundDura(255 - i, 9, 100)
             elif soundId == Sound.SOUND_GAMEOVER:
-                Sound.Sound.playSound(60, 9, 100)
-
+                Sound.Sound.playSoundDura(60, 9, 100)
         pass
