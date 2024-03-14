@@ -24,12 +24,13 @@ class TetrisDemo:
                       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
     def update(self, delta: int):
+        # TODO delta unused in C++ source
         Display.Display.clearDisplay()
 
         for x in range(32):
             for y in range(16):
                 if self.__map[y][x] == 1:
-                    Display.Display.drawPixel(x, y, Display.Display.getColor(2, 0, 0))
+                    Display.Display.drawPixel(x, y, Display.Display.getColorFrom333(2, 0, 0))
         
         Display.Display.refresh()
         pass
