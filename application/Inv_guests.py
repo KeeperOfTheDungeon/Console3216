@@ -7,10 +7,10 @@ import Sprite
 
 class Guests(Sprite.Sprite):
     def __init__(self):
-        self._vectorY: int
+        self._vectorY: int = 0
 
-        self._movementPrescaler: int
-        self._active: bool
+        self._movementPrescaler: int = 0
+        self._active: bool = False
 
     def move(self):
         pass
