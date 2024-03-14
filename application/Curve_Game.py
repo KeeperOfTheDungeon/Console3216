@@ -23,9 +23,9 @@ TICKS_TO_EVENT: int = 10
 TRACK_ID: int = 10
 
 # TODO C++ Global Vars.
-demoTop: CurveFeverPlayer.Position
-demoBottom: CurveFeverPlayer.Position
-ticks: int
+demoTop: CurveFeverPlayer.Position = None
+demoBottom: CurveFeverPlayer.Position = None
+ticks: int = 0
 
 clearDemoLines: bool = False
 
@@ -37,9 +37,9 @@ class Curve(Game.Game):
         super().__init__(leftJoystick, rightJoystick, "CURV")
         
         # TODO C++: GameStatus* gameStatus;
-        self.__gameStatus: CurveFeverLogic.GameStatus
-        self.__logic: CurveFeverLogic.Logic
-        self.__view: CurveFeverView.CurveFeverView
+        self.__gameStatus: CurveFeverLogic.GameStatus = None
+        self.__logic: CurveFeverLogic.Logic = None
+        self.__view: CurveFeverView.CurveFeverView = None
 
     def prepareDemo(self):
         self.__view.clearScreen()
