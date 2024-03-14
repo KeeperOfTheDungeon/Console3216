@@ -15,6 +15,8 @@ import NumericDisplay
 import Sine
 import Sound
 
+from rgbmatrix import graphics
+
 EVENT_NONE: int = 0
 EVENT_PLAYER_LEFT_POINT: int = 1
 EVENT_PLAYER_RIGHT_POINT: int = 2
@@ -27,7 +29,7 @@ PADDLE_SOUND_EFFECT_LEFT: int = 35
 PADDLE_SOUND_EFFECT_RIGHT: int = 36
 
 # TODO
-aa: int
+aa: int = 0
 
 
 class Pong(Game):
@@ -35,18 +37,16 @@ class Pong(Game):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "PONG")
 
-        self._ball: Ball
-        self._paddleLeft: Pong_Paddle.Paddle
-        self._paddleRight: Pong_Paddle.Paddle
-
-        self._fieldLineColor: int
+        self._ball: Ball = None
+        self._paddleLeft: Pong_Paddle.Paddle = None
+        self._paddleRight: Pong_Paddle.Paddle = None
 
         self._player1Points: int = 0
         self._player2Points: int = 0
 
         # TODO Rechtschreibfehler behoben: movePrescaller -> movePrescaler
-        self._movePrescaler: int
-        self._ballSpeedPrescaler: int
+        self._movePrescaler: int = 0
+        self._ballSpeedPrescaler: int = 0
 
         self._paddleLeft.setPosition(0, Display.DISPLAY_Y_EXTEND / 2)
         self._paddleRight.setPosition(Display.DISPLAY_X_EXTEND - 2, Display.DISPLAY_Y_EXTEND / 2)
@@ -59,7 +59,7 @@ class Pong(Game):
 
         self._restart()
 
-        self._fieldLineColor = Display.Display.getColor(0, 7, 0)
+        self._fieldLineColor: graphics.Color = Display.Display.getColorFrom333(0, 7, 0)
 
         NumericDisplay.NumericDisplay.test()
 
@@ -89,7 +89,7 @@ class Pong(Game):
 
     def draw(self):
         aa += 1
-        textColor: int = Display.Display.getColor(0, 2, aa >> 5)
+        textColor: int = Display.Display.getColorFrom333(0, 2, aa >> 5)
 
         NumericDisplay.NumericDisplay.displayTime(NumericDisplay.DISPLAY_MIDDLE, self._time / 1000)
 
