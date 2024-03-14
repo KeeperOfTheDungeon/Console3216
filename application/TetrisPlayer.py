@@ -76,9 +76,9 @@ class TetrisPlayer:
         tetrom = TetrisTetrom.TetrisTetrom(self.__mapOffsetX, self.__mapOffsetY)
         tetrom.setType(random.randrange(0, 7)) # Random type
         tetrom.setPosition(5, -5) # Top center?
-        rColor: int = Display.Display.getColor(random.randrange(0, 3), random.randrange(0, 3), random.randrange(0, 3))
+        rColor: int = Display.Display.getColorFrom333(random.randrange(0, 3), random.randrange(0, 3), random.randrange(0, 3))
         # TODO C++ Source overrides previous line
-        rColor = Display.Display.getColor(2, 2, 3)
+        rColor = Display.Display.getColorFrom333(2, 2, 3)
         tetrom.setColor(rColor)
         return tetrom
 
@@ -190,7 +190,8 @@ class TetrisPlayer:
     def init(self):
         self.playerpoints = 0
         self.__status = TetrisPlayerStatus.PLAYING
-        self.__mapColor = Display.Display.getColor(2, 0, 2)
+        self.__mapColor = Display.Display.getColorFrom333(2, 0, 2)
+        # TODO temporaryCounter only used in code which was commented out
         self.__temporaryCounter = 0
         self.__deltaSum = 0
         self.__updateDelay = self.__normalDelay
@@ -221,7 +222,7 @@ class TetrisPlayer:
         pass
 
     def drawNextTetroms(self, offsetX: int, offsetY: int):
-        color: int = Display.Display.getColor(0, 0, 2)
+        color: int = Display.Display.getColorFrom333(0, 0, 2)
 
         for x in range(4):
             for y in range(4):
