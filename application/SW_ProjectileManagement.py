@@ -117,9 +117,9 @@ class ProjectileManagement:
         for i in range(SW_Constants.MAXPROJECTILE * 2):
             if self.__projectile[i].getValid():
                 if self.__projectile[i].getDirection():
-                    Display.Display.drawPixel(self.__projectile[i].getXCoordinate(), self.__projectile[i].getYCoordinate(), Display.Display.getColor(0, 7, 0))
+                    Display.Display.drawPixel(self.__projectile[i].getXCoordinate(), self.__projectile[i].getYCoordinate(), Display.Display.getColorFrom333(0, 7, 0))
                 else:
-                    Display.Display.drawPixel(self.__projectile[i].getXCoordinate(), self.__projectile[i].getYCoordinate(), Display.Display.getColor(7, 0, 0))
+                    Display.Display.drawPixel(self.__projectile[i].getXCoordinate(), self.__projectile[i].getYCoordinate(), Display.Display.getColorFrom333(7, 0, 0))
         
         if self.__tickMoveProjectiles == SW_Constants.TICK_MOVE_PROJECTILES_DEFAULT:
             self.checkCollision()
