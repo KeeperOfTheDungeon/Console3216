@@ -20,16 +20,16 @@ class TetrisGame(Game.Game):
         super().__init__(leftJoystick, rightJoystick, "TTRS")
 
         # TODO C++: TetrisDemo* tetrisDemo;
-        self.__tetrisDemo: TetrisDemo.TetrisDemo
+        self.__tetrisDemo: TetrisDemo.TetrisDemo = None
         # TODO C++: TetrisLogic* tetrisLogic;
-        self.__tetrisLogic: TetrisLogic.TetrisLogic
+        self.__tetrisLogic: TetrisLogic.TetrisLogic = None
         # TODO C++: TetrisPlayer* playerLeft;
-        self.__playerLeft: TetrisLogic.TetrisPlayer
+        self.__playerLeft: TetrisLogic.TetrisPlayer = None
         # TODO C++: TetrisPlayer* playerRight;
-        self.__playerRight: TetrisLogic.TetrisPlayer
+        self.__playerRight: TetrisLogic.TetrisPlayer = None
 
-        self.__statusLeftJoystickOld: self.__JoystickStatus
-        self.__statusRightJoystickOld: self.__JoystickStatus
+        self.__statusLeftJoystickOld: self.__JoystickStatus = None
+        self.__statusRightJoystickOld: self.__JoystickStatus = None
 
         self.__lastTime: int = 0
 
