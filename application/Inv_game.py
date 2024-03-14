@@ -34,20 +34,20 @@ class Invaders(Game.Game):
         # TODO Super constructor call
         super().__init__(leftJoystick, rightJoystick, "INV")
 
-        self._pilot: Inv_pilot.Pilot
+        self._pilot: Inv_pilot.Pilot = None
         
-        self._pilotProjectile: Inv_projectile.Projectile
-        self._invadersProjectile: Inv_projectile.Projectile
+        self._pilotProjectile: Inv_projectile.Projectile = None
+        self._invadersProjectile: Inv_projectile.Projectile = None
 
-        self._ufo: Inv_ufo.Ufo
-        self._squad: Inv_squad.Squad
+        self._ufo: Inv_ufo.Ufo = None
+        self._squad: Inv_squad.Squad = None
 
-        self._player1Points: int
+        self._player1Points: int = 0
 
         # TODO C++: uint8_t movePrescaller;
         # TODO Rechtschreibfehler behoben: _movePrescaller -> _movePrescaler
-        self._movePrescaler: int
-        self._active: bool
+        self._movePrescaler: int = 0
+        self._active: bool = False
 
         # TODO Perhaps leftJoystick needs to be instance variable
         self._pilot.init(leftJoystick)
@@ -99,7 +99,7 @@ class Invaders(Game.Game):
         pass
 
     def draw(self):
-        textColor: int = Display.Display.getColor(0, 2, 5)
+        textColor: int = Display.Display.getColorFrom333(0, 2, 5)
         
         Display.Display.clearDisplay()
         Display.Display.drawText(self._name, 4, 4, textColor, 1)
