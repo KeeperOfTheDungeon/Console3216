@@ -14,15 +14,15 @@ class SpaceSounds:
         pass
 
     def playSoundShipShot(self):
-        Sound.Sound.playSound(SHIP_SHOT_SOUND, 9, 100)
+        Sound.Sound.playSoundDura(SHIP_SHOT_SOUND, 9, 100)
         pass
 
     def playSoundShipMove(self):
-        Sound.Sound.playSound(SHIP_MOVE_SOUND, 9, 100)
+        Sound.Sound.playSoundDura(SHIP_MOVE_SOUND, 9, 100)
         pass
 
     def playSoundShipHasBeenHit(self):
-        Sound.Sound.playSound(SHIP_GOT_HIT_SOUND, 9, 100)
+        Sound.Sound.playSoundDura(SHIP_GOT_HIT_SOUND, 9, 100)
         pass
 
     def playSoundProjectileCollision(self):
