@@ -21,9 +21,9 @@ class Paddle(Sprite.Sprite):
     def __init__(self):
         # TODO Super constructor call
         super().__init__(0, 0, 2, 5)
-        self._orientation: bool
-        self._status: int
-        self._bounceSoundEffect: int
+        self._orientation: bool = False
+        self._status: int = 0
+        self._bounceSoundEffect: int = 0
 
         self.unBend()
         self.activate()
@@ -37,17 +37,17 @@ class Paddle(Sprite.Sprite):
         self._bounceSoundEffect = newBounceSoundEffect
 
     def bend(self):
-        self._bitmap[0] = 0xff00
-        self._bitmap[1] = 0x0000
-        self._bitmap[2] = 0x0000
-        self._bitmap[3] = 0x0000
-        self._bitmap[4] = 0xff00
-
-        self._bitmap[5] = 0x0000
-        self._bitmap[6] = 0x0ff0
-        self._bitmap[7] = 0x0ff0
-        self._bitmap[8] = 0x0ff0
-        self._bitmap[9] = 0x0000
+        self._bitmap[0] = Display.Display.getColorFrom565(0xff00)
+        self._bitmap[1] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[2] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[3] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[4] = Display.Display.getColorFrom565(0xff00)
+        
+        self._bitmap[5] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[6] = Display.Display.getColorFrom565(0x0ff0)
+        self._bitmap[7] = Display.Display.getColorFrom565(0x0ff0)
+        self._bitmap[8] = Display.Display.getColorFrom565(0x0ff0)
+        self._bitmap[9] = Display.Display.getColorFrom565(0x0000)
 
         if self._orientation:
             # TODO pyserial
@@ -66,17 +66,17 @@ class Paddle(Sprite.Sprite):
         pass
 
     def unBend(self):
-        self._bitmap[0] = 0xff00
-        self._bitmap[1] = 0x00ff
-        self._bitmap[2] = 0x00ff
-        self._bitmap[3] = 0x00ff
-        self._bitmap[4] = 0xff00
-
-        self._bitmap[5] = 0x0000
-        self._bitmap[6] = 0x0000
-        self._bitmap[7] = 0x0000
-        self._bitmap[8] = 0x0000
-        self._bitmap[9] = 0x0000
+        self._bitmap[0] = Display.Display.getColorFrom565(0xff00)
+        self._bitmap[1] = Display.Display.getColorFrom565(0x00ff)
+        self._bitmap[2] = Display.Display.getColorFrom565(0x00ff)
+        self._bitmap[3] = Display.Display.getColorFrom565(0x00ff)
+        self._bitmap[4] = Display.Display.getColorFrom565(0xff00)
+        
+        self._bitmap[5] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[6] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[7] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[8] = Display.Display.getColorFrom565(0x0000)
+        self._bitmap[9] = Display.Display.getColorFrom565(0x0000)
 
         if self._orientation:
             self.mirrorY()
@@ -126,7 +126,7 @@ class Paddle(Sprite.Sprite):
         # Serial.print("****sound :");
         # Sound::playSound(this->bounceSoundEffect, 9, 100);
         
-        Sound.Sound.playSound(self._bounceSoundEffect, 9, 100)
+        Sound.Sound.playSoundDura(self._bounceSoundEffect, 9, 100)
 
         return event
 
