@@ -21,12 +21,12 @@ class Alien(Sprite.Sprite):
     def __init__(self):
         super().__init__(0, 0, 1, 1)
         
-        self._type: int
-        self._movementCounter: int
-        self._movementPrescaler: int
+        self._type: int = ALIEN_TYPE_NONE
+        self._movementCounter: int = 0
+        self._movementPrescaler: int = 0
         
         # bitmap is part of Sprite.py
-        self._bitmap[0] = Display.Display.getColor(7, 3, 0)
+        self._bitmap[0] = Display.Display.getColorFrom333(7, 3, 0)
         self.activate()
 
     def setType(self, newType: int):
