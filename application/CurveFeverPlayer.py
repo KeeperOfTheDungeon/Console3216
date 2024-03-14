@@ -33,8 +33,8 @@ Item = int
 # TODO C++: typedef struct {...} Position;
 class Position:
     def __init__(self):
-        self.x: int
-        self.y: int
+        self.x: int = 0
+        self.y: int = 0
 
 
 class Player:
@@ -48,12 +48,12 @@ class Player:
     height: int = 0
 
     def __init__(self):
-        self.__name: int
+        self.__name: int = 0
         self.__speed: int = REGULAR
         self.__item: Item = NO_ITEM
-        self.__itemActive: bool
+        self.__itemActive: bool = False
         self.__itemDuration: int = ITEM_DURATION
-        self.__position: Position
+        self.__position: Position = None
         self.__boost: int = MAX_BOOST
         self.__direction: int = UP
         self.__creatingGap: bool = True
