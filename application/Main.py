@@ -40,14 +40,14 @@ import TetrisGame
 # #include "Midi.h"
 # #include "MidiInterrupt.h"
 
-totalCoinValue: int
-currentCoinValue: int
+totalCoinValue: int = 0
+currentCoinValue: int = 0
 
 # TODO
-console: Console.Console
+console: Console.Console = None
 
 # TODO C++: Display* display;
-display: Display.Display
+display: Display.Display = None
 
 # TODO Arduino specific code, now handled by main()
 def setup():
