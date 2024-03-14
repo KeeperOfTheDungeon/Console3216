@@ -11,20 +11,20 @@ class Ball(Sprite.Sprite):
         # TODO Super constructor call
         super().__init__(0, 0, 1, 1)
 
-        self._bitmap[0] = Display.Display.getColor(7, 0, 0)
+        self._bitmap[0] = Display.Display.getColorFrom333(7, 0, 0)
         self.activate()
 
-        self._vectorX: int = -1
-        self._vectorY: int
+        self._vectorX: int = 0
+        self._vectorY: int = 0
 
-        self._intPosX: int
-        self._intPosY: int
+        self._intPosX: int = 0
+        self._intPosY: int = 0
 
-        self._movementCounter: int
-        self._movementPrescaler: int
+        self._movementCounter: int = 0
+        self._movementPrescaler: int = 0
 
         # TODO C++: uint8_t moved:1;
-        self._moved: int
+        self._moved: int = 0
 
     def setPosition(self, newXPos: int, newYPos: int):
         self._intPosX = newXPos << 4
