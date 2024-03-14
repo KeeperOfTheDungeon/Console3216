@@ -15,9 +15,9 @@ ALIENS_SQUAD_MAX_SIZE: int = 24
 # TODO typedef struct {...} SquadMember_t
 class SquadMember_t:
     def __init__(self):
-        self.type: int
-        self.xDelta: int
-        self.yDelta: int
+        self.type: int = 0
+        self.xDelta: int = 0
+        self.yDelta: int = 0
 
 # TODO C++ Source:
 # const SquadMember_t alienSquads [2] [ALLIENS_SQUAD_MAX_SIZE] = {...}
@@ -47,13 +47,13 @@ alienSquads = [SquadMember_t(Inv_alien.ALIEN_TYPE_SCOUT, 0, 1), SquadMember_t(In
 
 class Squad:
     def __init__(self):
-        self._type: int
-        self._movementCounter: int
-        self._movementPrescaler: int
+        self._type: int = 0
+        self._movementCounter: int = 0
+        self._movementPrescaler: int = 0
         # TODO C++: Alien aliens[ALLIENS_SQUAD_MAX_SIZE];
         self._aliens = [None for _ in range(ALIENS_SQUAD_MAX_SIZE)]
         # TODO Schreibfehler behoben: _moviePrescaller -> _movePrescaler
-        self._movePrescaler: int
+        self._movePrescaler: int = 0
 
     def prepareSquad(self):
         pass
@@ -79,7 +79,7 @@ class Squad:
             if alienMinXPos > self._aliens[squadCounter].getXPos():
                 alienMinXPos = self._aliens[squadCounter].getXPos()
             
-        direction: bool
+        direction: bool = False
 
         randomNr = random.randrange(3)
         # TODO Source C++ code was Switch/Case
