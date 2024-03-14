@@ -16,15 +16,15 @@ class Pilot(Sprite.Sprite):
         super().__init__(0, 0, 1, 1)
 
         # TODO C++: Joystick *joystick;
-        self._joystick: Joystick.Joystick
+        self._joystick: Joystick.Joystick = None
 
-        self._movementCounter: int
-        self._movementPrescaler: int
+        self._movementCounter: int = 0
+        self._movementPrescaler: int = 0
 
-        self._moved: int
+        self._moved: int = 0
 
         # TODO Sprite Class
-        self._bitmap[0] = Display.Display.getColor(7, 0, 0)
+        self._bitmap[0] = Display.Display.getColorFrom333(7, 0, 0)
         self.activate()
 
     # TODO C++: void init(Joystick & myJoystick);
