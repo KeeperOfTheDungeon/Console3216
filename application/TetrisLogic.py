@@ -14,12 +14,12 @@ class TetrisLogicStatus(Enum):
 
 class TetrisLogic:
     def __init__(self):
-        self.__status: TetrisLogicStatus
+        self.__status: TetrisLogicStatus = None
 
         # TODO C++: TetrisPlayer* playerLeft;
-        self.playerLeft: TetrisPlayer.TetrisPlayer
+        self.playerLeft: TetrisPlayer.TetrisPlayer = None
         # TODO C++: TetrisPlayer* playerRight;
-        self.playerRight: TetrisPlayer.TetrisPlayer
+        self.playerRight: TetrisPlayer.TetrisPlayer = None
 
         self.initializeGame()
 
@@ -33,8 +33,8 @@ class TetrisLogic:
 
     def __drawBorders(self):
         for y in range(16):
-            Display.Display.drawPixel(10, y, Display.Display.getColor(2, 0, 0))
-            Display.Display.drawPixel(21, y, Display.Display.getColor(2, 0, 0))
+            Display.Display.drawPixel(10, y, Display.Display.getColorFrom333(2, 0, 0))
+            Display.Display.drawPixel(21, y, Display.Display.getColorFrom333(2, 0, 0))
         pass
 
     def update(self, delta: int):
