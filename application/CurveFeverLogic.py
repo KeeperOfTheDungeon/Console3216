@@ -41,44 +41,46 @@ STATE_ITEM_3 = 5
 # TODO C++: typedef struct {...} CellUpdate;
 class CellUpdate:
     def __init__(self):
-        self.x: int
-        self.y: int
-        self.state: int
+        self.x: int = 0
+        self.y: int = 0
+        self.state: int = STATE_EMPTY
 
 
 # TODO C++: typedef struct {...} GameStatus;
 class GameStatus:
     def __init__(self):
-        self.gameOver: bool
-        self.clearScreen: bool
-        self.cellUpdates: CellUpdate  # TODO C++: CellUpdate* cellUpdates;
-        self.updateCount: int
-        self.soundStatus: int
-        self.player1Boost: int
-        self.player2Boost: int
+        self.gameOver: bool = False
+        self.clearScreen: bool = True
+        self.cellUpdates: CellUpdate = None # TODO C++: CellUpdate* cellUpdates;
+        self.updateCount: int = 0
+        self.soundStatus: int = NO_SOUND
+        self.player1Boost: int = 0
+        self.player2Boost: int = 0
 
 
 class Logic:
 
     def __init__(self):
         # TODO C++: Joystick* joystick1;
-        self.__joystick1: Joystick.Joystick
+        self.__joystick1: Joystick.Joystick = None
         # TODO C++: Joystick* joystick2;
-        self.__joystick2: Joystick.Joystick
+        self.__joystick2: Joystick.Joystick = None
         # TODO C++: CellUpdate cellUpdates[MAX_CHANGE_COUNT];
         self.__cellUpdates = [CellUpdate for _ in range(MAX_CHANGE_COUNT)]
 
-        self.__status: GameStatus
-        self.__player1: CurveFeverPlayer.Player
-        self.__player2: CurveFeverPlayer.Player
-        self.__winner: int
-        self.__currentItem: CurveFeverPlayer.Item
-        self.__itemPosition: CurveFeverPlayer.Position
-        self.__gameTicks: int
+        self.__status: GameStatus = None
+        self.__player1: CurveFeverPlayer.Player = None
+        self.__player2: CurveFeverPlayer.Player = None
+        self.__winner: int = 0
+        # TODO Item ist ein einfaches Int
+        self.__currentItem: CurveFeverPlayer.Item = CurveFeverPlayer.NO_ITEM
+        self.__itemPosition: CurveFeverPlayer.Position = None
+        self.__gameTicks: int = 0
 
         # TODO C++: uint8_t field[FIELD_WIDTH][FIELD_HEIGHT];
         self.__field = [[0 for _ in range(FIELD_HEIGHT)] for _ in range(FIELD_WIDTH)]
 
+    # TODO C++ Source had no definition
     def __generateItem(self) -> int:
         pass
 
