@@ -13,6 +13,7 @@ import Display
 # #include "sw_projectile.h"
 import SW_Projectile
 
+from RgbLed import graphics
 
 class Ship(Sprite.Sprite):
     def __init__(self):
@@ -20,19 +21,19 @@ class Ship(Sprite.Sprite):
         super().__init__(0, 0, 4, 3)
         # Attribute
         self._shipLives: int = 3
-        self._orientation: int
-        self._shipColor: int
+        self._orientation: int = SW_Constants.SHIP_ORIENTATION_LEFT
+        self._shipColor: graphics.Color = None
         self._timerTickMove: int = SW_Constants.SHIP_TICK_MOVE
         self._timerTickShot: int = SW_Constants.SHIP_TICK_SHOT
-        self._hitBoxOne: int
-        self._hitBoxTwo: int
-        self._hitBoxThree: int
-        self._rightBorder: int
-        self._leftBorder: int
-        self._upperBorder: int
-        self._bottomBorder: int
-        self._xPos: int
-        self._yPos: int
+        self._hitBoxOne: int = 0
+        self._hitBoxTwo: int = 0
+        self._hitBoxThree: int = 0
+        self._rightBorder: int = 0
+        self._leftBorder: int = 0
+        self._upperBorder: int = 0
+        self._bottomBorder: int = 0
+        self._xPos: int = 0
+        self._yPos: int = 0
 
         # TODO C++: uint8_t shipBorderArray[4];
         self._shipBorderArray = [0 for _ in range(4)]
@@ -71,33 +72,33 @@ class Ship(Sprite.Sprite):
             # Serial.println("Bitmap LeftShip called")
             self.setPosition(5, 5)
             self._bitmap[0] = self._shipColor
-            self._bitmap[1] = 0x0000
+            self._bitmap[1] = Display.Display.getColorFrom565(0x0000)
             self._bitmap[2] = self._shipColor
             self._bitmap[3] = self._shipColor
             self._bitmap[4] = self._shipColor
             self._bitmap[5] = self._shipColor
-            self._bitmap[6] = 0x0000
+            self._bitmap[6] = Display.Display.getColorFrom565(0x0000)
             self._bitmap[7] = self._shipColor
-            self._bitmap[8] = 0x0000
-            self._bitmap[9] = 0x0000
-            self._bitmap[10] = 0x0000
-            self._bitmap[11] = 0x0000
+            self._bitmap[8] = Display.Display.getColorFrom565(0x0000)
+            self._bitmap[9] = Display.Display.getColorFrom565(0x0000)
+            self._bitmap[10] = Display.Display.getColorFrom565(0x0000)
+            self._bitmap[11] = Display.Display.getColorFrom565(0x0000)
         else:
             # TODO pyserial
             # Serial.println("Bitmap RightShip called");
             self.setPosition(25, 5)
-            self._bitmap[0] = 0x0000
+            self._bitmap[0] = Display.Display.getColorFrom565(0x0000)
             self._bitmap[1] = self._shipColor
-            self._bitmap[2] = 0x0000
+            self._bitmap[2] = Display.Display.getColorFrom565(0x0000)
             self._bitmap[3] = self._shipColor
             self._bitmap[4] = self._shipColor
             self._bitmap[5] = self._shipColor
             self._bitmap[6] = self._shipColor
-            self._bitmap[7] = 0x0000
+            self._bitmap[7] = Display.Display.getColorFrom565(0x0000)
             self._bitmap[8] = self._shipColor
-            self._bitmap[9] = 0x0000
-            self._bitmap[10] = 0x0000
-            self._bitmap[11] = 0x0000
+            self._bitmap[9] = Display.Display.getColorFrom565(0x0000)
+            self._bitmap[10] = Display.Display.getColorFrom565(0x0000)
+            self._bitmap[11] = Display.Display.getColorFrom565(0x0000)
         pass
 
     """
@@ -250,7 +251,7 @@ class Ship(Sprite.Sprite):
      * Diese Methode ändert die Farbe aller Pixel eines Raumschiffes.
      * @param color
     """
-    def setShipColor(self, color: int):
+    def setShipColor(self, color: graphics.Color):
         self._shipColor = color
         pass
 
