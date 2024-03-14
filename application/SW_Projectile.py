@@ -6,13 +6,13 @@ import Joystick
 class SW_Projectile:
     def __init__(self):
         # x-Koordinate
-        self.__xCoordinate: int
+        self.__xCoordinate: int = 0
 
         # y-Koordinate
-        self.__yCoordinate: int
+        self.__yCoordinate: int = 0
 
         # Richtungsflag
-        self.__directionLeft: bool
+        self.__directionLeft: bool = False
 
         # Valid flag
         self.__valid: bool = False
