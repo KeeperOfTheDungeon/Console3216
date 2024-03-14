@@ -15,10 +15,10 @@ class Ufo(Sprite.Sprite):
         # TODO Super constructor call
         super().__init__(0, 0, 1, 1)
 
-        self._movementPrescaler: int
+        self._movementPrescaler: int = 0
 
         # TODO GetColor
-        self._bitmap[0] = Display.Display.getColor(7, 7, 7)
+        self._bitmap[0] = Display.Display.getColorFrom333(7, 7, 7)
         self.activate()
         self._yPos = 0
 
